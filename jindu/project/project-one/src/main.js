@@ -15,6 +15,10 @@ Vue.config.productionTip = false
 
 import './plugins/element'
 
+import './plugins/fontawesome'
+
+import './plugins/iconpark'
+
 new Vue({
   render: (h) => h(App)
 }).$mount('#app')
