@@ -19,6 +19,12 @@ import './plugins/fontawesome'
 
 import './plugins/iconpark'
 
+import axios from 'axios'
+Vue.prototype.axios = axios
+
+import router from './router'
+
 new Vue({
+  router,
   render: (h) => h(App)
 }).$mount('#app')
