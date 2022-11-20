@@ -19,8 +19,10 @@ import './plugins/fontawesome'
 
 import './plugins/iconpark'
 
-import axios from 'axios'
-Vue.prototype.axios = axios
+// import axios from 'axios'
+// Vue.prototype.axios = axios
+import request from '@/utils/request'
+Vue.prototype.request = request
 
 import router from './router'
 

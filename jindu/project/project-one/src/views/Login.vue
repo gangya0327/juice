@@ -23,6 +23,7 @@
 <script>
 import { usernameValidate, passwordValidate } from '@/utils/validate'
 import { setToken } from '@/utils/token'
+import { login } from '@/api/user'
 
 export default {
   data() {
@@ -41,22 +42,16 @@ export default {
     login(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-          console.log('ok')
-          this.axios
-            .post('https://www.fastmock.site/mock/e4dd3c14cb41fd4290bc9156d8fefc40/web/user/login', this.form)
-            .then((response) => response.data)
-            .then((res) => {
-              if (res.code === 200) {
-                setToken('token', res.data)
-                this.$message({ message: res.message, type: 'success' })
-                this.$router.push('/home')
-              }
-            })
-            .catch((err) => {
-              console.error(err)
-            })
+          login(this.form).then((res) => {
+            if (res.code === 200) {
+              setToken('token', res.token)
+              setToken('username', res.username)
+              this.$message({ message: res.message, type: 'success' })
+              this.$router.push('/home')
+            }
+          })
         } else {
-          console.log('fail')
+          console.log('login fail')
         }
       })
     }
@@ -68,12 +63,16 @@ export default {
 .login {
   width: 100%;
   height: 100%;
+  position: absolute;
+  background: url(@/assets/bg.jpeg) no-repeat;
+  background-size: cover;
   .title {
     font-size: 32px;
   }
   .box-card {
     width: 500px;
-    margin: 30px auto;
+    margin: 250px auto;
+    background-color: rgba(255, 255, 255, 0.85);
     .el-button {
       width: 100%;
     }

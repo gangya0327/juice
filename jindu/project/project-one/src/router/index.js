@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: () => import('@/components/LoginPage')
+      component: () => import('@/views/Login')
     },
     {
       path: '/hello',
@@ -24,8 +24,11 @@ export default new Router({
     },
     {
       path: '/home',
-      // component: HomePage
-      component: () => import('@/components/HomePage')
+      component: () => import('@/views/Home')
+    },
+    {
+      path: '*',
+      component: () => import('@/views/NotFound')
     }
   ]
 })
