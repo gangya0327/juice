@@ -1,9 +1,9 @@
 <template>
   <div class="home">
     <Header />
-    <el-container>
+    <el-container class="content">
       <Menu />
-      <el-container class="content">
+      <el-container>
         <el-main>main</el-main>
         <el-footer><Footer /></el-footer>
       </el-container>
@@ -32,7 +32,8 @@ export default {
   .content {
     position: absolute;
     width: 100%;
-    height: 100%;
+    top: 60px;
+    bottom: 0;
   }
 }
 </style>
