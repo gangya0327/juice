@@ -1,43 +1,29 @@
 <template>
   <div class="menu">
-    <el-aside width="200px">
+    <el-aside width="180px">
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
         background-color="#545c64"
         text-color="#fff"
         active-text-color="#ffd04b"
+        unique-opened
+        router
       >
-        <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <template slot="title">分组一</template>
-            <el-menu-item index="1-1">选项1</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
-          </el-menu-item-group>
-          <el-menu-item-group title="分组2">
-            <el-menu-item index="1-3">选项3</el-menu-item>
-          </el-menu-item-group>
-          <el-submenu index="1-4">
-            <template slot="title">选项4</template>
-            <el-menu-item index="1-4-1">选项1</el-menu-item>
+        <template v-for="(item, index) in menus">
+          <el-submenu v-if="!item.hidden" :key="index" :index="index + ''">
+            <template slot="title">
+              <i :class="item.iconClass"></i>
+              <span>{{ item.name }}</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item v-for="(itm, idx) in item.children" :key="idx" :index="itm.path">
+                <i :class="itm.iconClass"></i>
+                <span>{{ itm.name }}</span>
+              </el-menu-item>
+            </el-menu-item-group>
           </el-submenu>
-        </el-submenu>
-        <el-menu-item index="2">
-          <i class="el-icon-menu"></i>
-          <span slot="title">导航二</span>
-        </el-menu-item>
-        <el-menu-item index="3" disabled>
-          <i class="el-icon-document"></i>
-          <span slot="title">导航三</span>
-        </el-menu-item>
-        <el-menu-item index="4">
-          <i class="el-icon-setting"></i>
-          <span slot="title">导航四</span>
-        </el-menu-item>
+        </template>
       </el-menu>
     </el-aside>
   </div>
@@ -45,9 +31,16 @@
 
 <script>
 export default {
-  methods: {
-    
-  }
+  data() {
+    return {
+      menus: []
+    }
+  },
+  created() {
+    console.log(this.$router.options.routes)
+    this.menus = [...this.$router.options.routes]
+  },
+  methods: {}
 }
 </script>
 

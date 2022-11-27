@@ -47,7 +47,7 @@ export default {
               setToken('token', res.token)
               setToken('username', res.username)
               this.$message({ message: res.message, type: 'success' })
-              this.$router.push('/home')
+              this.$router.push('/student')
             }
           })
         } else {
