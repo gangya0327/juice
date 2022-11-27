@@ -28,6 +28,7 @@ export default new Router({
     {
       path: '/student',
       name: '学生管理',
+      redirect: '/student/list',
       iconClass: 'el-icon-user-solid',
       component: () => import('@/views/Home'),
       // component: resolve => require(['@/views/Home.vue'], resolve),

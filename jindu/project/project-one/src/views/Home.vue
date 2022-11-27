@@ -5,6 +5,7 @@
       <Menu />
       <el-container>
         <el-main>
+          <breadcrumb />
           <div class="main">
             <router-view></router-view>
           </div>
@@ -19,12 +20,14 @@
 import Header from '@/layout/Header.vue'
 import Menu from '@/layout/Menu.vue'
 import Footer from '@/layout/Footer.vue'
+import Breadcrumb from '@/layout/Breadcrumb.vue'
 
 export default {
   components: {
     Header,
     Menu,
-    Footer
+    Footer,
+    Breadcrumb
   }
 }
 </script>

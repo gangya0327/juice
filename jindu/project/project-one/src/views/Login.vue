@@ -44,8 +44,8 @@ export default {
         if (valid) {
           login(this.form).then((res) => {
             if (res.code === 200) {
-              setToken('token', res.token)
-              setToken('username', res.username)
+              setToken('token', res.data.token)
+              setToken('username', res.data.username)
               this.$message({ message: res.message, type: 'success' })
               this.$router.push('/student')
             }
