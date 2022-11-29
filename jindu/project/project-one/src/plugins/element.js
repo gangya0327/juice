@@ -20,7 +20,11 @@ import {
   BreadcrumbItem,
   Table,
   TableColumn,
-  Pagination
+  Pagination,
+  Dialog,
+  Radio,
+  RadioGroup,
+  DatePicker
 } from 'element-ui'
 Vue.prototype.$message = Message
 
@@ -44,3 +48,7 @@ Vue.use(BreadcrumbItem)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Pagination)
+Vue.use(Dialog)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(DatePicker)

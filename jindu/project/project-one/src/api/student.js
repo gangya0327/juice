@@ -8,3 +8,12 @@ export function getStudentList(params) {
     params
   })
 }
+
+// 学生列表查询
+export function getStudentInfoList(params) {
+  return request({
+    url: '/student/infolist',
+    method: 'get',
+    params
+  })
+}

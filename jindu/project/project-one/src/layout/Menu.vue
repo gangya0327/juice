@@ -1,6 +1,6 @@
 <template>
   <div class="menu">
-    <el-aside width="180px">
+    <el-aside width="170px">
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
