@@ -1,8 +1,12 @@
 module.exports = {
   rules: {
     get: {
+      meta: {
+        fixable: 'code'
+      },
       create(context) {
         console.log('hello eslint plugin get2')
+        const isFix = context.options[0]
         // console.log('context :>> ', context);
         return {
           FunctionDeclaration(node) {
@@ -12,7 +16,7 @@ module.exports = {
               //   node,
               //   message: `${functionName} must start with get`
               // })
-              return;
+              return
             }
 
             const blockStatementBody = node.body.body
@@ -21,7 +25,13 @@ module.exports = {
             if (!lastNode || lastNode.type !== 'ReturnStatement') {
               context.report({
                 node,
-                message: `${functionName} must return a value`
+                message: `${functionName} must return a value`,
+                fix(fixer) {
+                  if (isFix === false) return fixer.insertTextAfter(node, '')
+                  // console.log('node :>> ', node)
+                  const endPoint = node.range[1]
+                  return fixer.replaceTextRange([endPoint - 1, endPoint], '  return ""\n}')
+                }
               })
               return
             }

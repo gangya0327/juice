@@ -11,6 +11,6 @@ module.exports = {
     },
     "plugins": ["get2"],
     "rules": {
-        "get2/get": ["warn"]
+        "get2/get": ["warn", false]
     }
 }
