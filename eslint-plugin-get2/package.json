@@ -7,8 +7,12 @@
     "test": "node get.spec.js",
     "test2": "mocha tests"
   },
+  "files": [
+    "index.js",
+    "package.json"
+  ],
   "keywords": [],
-  "author": "",
+  "author": "gangya0327",
   "license": "ISC",
   "devDependencies": {
     "eslint": "^8.30.0",
