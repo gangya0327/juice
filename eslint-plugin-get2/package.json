@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node get.spec.js"
+    "test": "node get.spec.js",
+    "test2": "mocha tests"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.30.0"
+    "eslint": "^8.30.0",
+    "mocha": "^10.2.0"
   }
 }
