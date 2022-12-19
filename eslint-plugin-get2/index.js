@@ -3,6 +3,7 @@ module.exports = {
     get: {
       create() {
         console.log('hello eslint plugin get2')
+        return {}
       }
     }
   }
