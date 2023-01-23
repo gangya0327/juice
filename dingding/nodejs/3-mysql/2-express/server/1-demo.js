@@ -1,8 +1,6 @@
 const express = require('express')
 const db = require('../database/1-db')
 
-console.log('db :>> ', db)
-
 const app = express()
 
 app.get('/get_data', (req, res) => {

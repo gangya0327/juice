@@ -1,28 +1,23 @@
 const express = require('express')
 const db = require('../database/2-orm')
 
-console.log('db :>> ', db)
-
 const app = express()
 
 app.get('/get_data', (req, res) => {
   let Students = db.model('students')
-  // 查询所有数据
-  // Students.find((err, data) => {
-  //   res.send(data)
+  // Students.insert({ name: '宋庭鹭', age: 36, height: 1.88, gender: '保密' }, (err, data) => {
+  //   res.send('添加成功')
   // })
-  // 查询指定字段
-  // Students.find(['name', 'age'], (err, data) => {
-  //   res.send(data)
-  // })
-  // 按条件查询
-  // Students.find('id=5', (err, data) => {
-  //   res.send(data)
-  // })
-  // 分页查询
-  Students.limit({ where: 'age>30', number: 1, count: 5 }, (err, data) => {
-    res.send(data)
-  })
+  Students.insert(
+    [
+      { name: '王生', age: 24, height: 1.76, gender: '女', class_id: 3 },
+      { name: '余地龙', age: 15, height: 1.58, gender: '男', class_id: 3 },
+      { name: '吕云长', age: 26, height: 1.8, gender: '保密', class_id: 4 }
+    ],
+    (err, data) => {
+      res.send('添加成功')
+    }
+  )
 })
 
 app.listen(3001, () => {

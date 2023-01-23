@@ -9,8 +9,9 @@ const orm_config = {
 }
 
 let options = {}
-let tebleSQL = ''
-let isConnect = false
+let tableSQL = ''
+// let isConnect = false
+let isConnect = true
 
 function Model(name, option) {
   this.name = name
@@ -19,7 +20,6 @@ function Model(name, option) {
 
 Model.prototype.find = function (options, callback) {
   if (!isConnect) {
-    console.log(options.constructor)
     this.connect((err) => {
       isConnect = true
       let str = ''
@@ -62,7 +62,6 @@ Model.prototype.limit = function (options, callback) {
       options.count
     }`
   }
-  console.log('str :>> ', str)
   connection.query(str, (err, results, fields) => {
     callback(err, results, fields)
   })
@@ -101,7 +100,7 @@ Model.prototype.insertObj = function (obj, callback) {
   let values = ''
   for (var key in obj) {
     keys.push(key)
-    values += `${obj[key]}`
+    values += `"${obj[key]}",`
   }
   values = values.replace(/,$/, '')
   let str = `insert into ${this.name} (${keys.join()}) values (${values})`
@@ -115,7 +114,7 @@ Model.prototype.update = function (option, obj, callback) {
   if (arguments.length === 2) {
     callback = obj
     obj = option
-    str = `update ${this.name} set`
+    str = `update ${this.name} set `
     for (var key in obj) {
       str += `${key}='${obj[key]}', `
     }
@@ -143,7 +142,6 @@ Model.prototype.delete = function (option, callback) {
   } else {
     str = `delete from ${this.name} where ${option}`
   }
-  console.log('str :>> ', str)
   connection.query(str, (err, results, fields) => {
     callback(err, results, fields)
   })
@@ -166,7 +164,7 @@ Model.prototype.drop = function (callback) {
 
 Model.prototype.connect = function (callback) {
   let p1 = new Promise((resolve, reject) => {
-    connection.query((err) => {
+    connection.connect((err) => {
       if (err) reject(err)
       else resolve()
     })
@@ -234,14 +232,14 @@ let orm = {
   },
 
   model: function (name, options) {
-    let str = 'id int primary key auto_increment'
+    let str = 'id int primary key auto_increment '
     for (var key in options) {
       if (options[key] === Number) {
-        str += `${key} numeric`
+        str += `${key} numeric,`
       } else if (options[key] === Date) {
-        str += `${key} timestamp`
+        str += `${key} timestamp,`
       } else {
-        str += `${key} varchar(255)`
+        str += `${key} varchar(255),`
       }
     }
     str = str.replace(/,$/, '')
