@@ -11,20 +11,29 @@ app.set('view options', {
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 
-app.get('/index', (req, res) => {
-  res.render('index')
+// ajax页面
+app.get('/ajax/index', (req, res) => {
+  res.render('ajax/index')
 })
-app.get('/login', (req, res) => {
-  res.render('login')
+app.get('/ajax/login', (req, res) => {
+  res.render('ajax/login')
 })
 
-app.post('/login_post', (req, res) => {
+// ajax请求
+app.post('/ajax/login_post', (req, res) => {
   req.on('data', (postData) => {
-    res.send(JSON.parse(postData.toString()))
+    const { username, password } = JSON.parse(postData.toString())
+    res.send({
+      code: 200,
+      message: '登录成功',
+      data: {
+        name: username,
+        pwd: password
+      }
+    })
   })
 })
-
-app.get('/get_data', (req, res) => {
+app.get('/ajax/get_data', (req, res) => {
   let obj = {
     name: 'jack',
     age: 30

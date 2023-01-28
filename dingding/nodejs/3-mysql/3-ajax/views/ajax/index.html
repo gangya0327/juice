@@ -20,8 +20,9 @@
       let btn = document.querySelector('#jump')
       btn.addEventListener('click', () => {
         let ajax = new XMLHttpRequest()
-        ajax.open('get', '/get_data')
+        ajax.open('get', '/ajax/get_data')
         ajax.onreadystatechange = () => {
+          console.log('ajax :>> ', ajax)
           console.log(ajax.readyState)
           console.log(ajax.status)
           if (ajax.readyState === 4 && ajax.status === 200) {

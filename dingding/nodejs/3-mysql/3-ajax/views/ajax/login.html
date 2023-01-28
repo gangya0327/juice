@@ -21,7 +21,7 @@
         let password = document.querySelector('#password').value
         const params = { username, password }
         let ajax = new XMLHttpRequest()
-        ajax.open('POST', '/login_post')
+        ajax.open('POST', '/ajax/login_post')
         ajax.onreadystatechange = () => {
           if (ajax.readyState === 4 && ajax.status === 200) {
             const result = JSON.parse(ajax.responseText)
