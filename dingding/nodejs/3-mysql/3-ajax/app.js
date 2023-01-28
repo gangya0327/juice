@@ -12,15 +12,15 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'html')
 
 // ajax页面
-app.get('/ajax/index', (req, res) => {
-  res.render('ajax/index')
+app.get('/index', (req, res) => {
+  res.render('index')
 })
-app.get('/ajax/login', (req, res) => {
-  res.render('ajax/login')
+app.get('/login', (req, res) => {
+  res.render('login')
 })
 
 // ajax请求
-app.post('/ajax/login_post', (req, res) => {
+app.post('/login_post', (req, res) => {
   req.on('data', (postData) => {
     const { username, password } = JSON.parse(postData.toString())
     res.send({
@@ -33,7 +33,7 @@ app.post('/ajax/login_post', (req, res) => {
     })
   })
 })
-app.get('/ajax/get_data', (req, res) => {
+app.get('/get_data', (req, res) => {
   let obj = {
     name: 'jack',
     age: 30
