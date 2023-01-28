@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>首页</h2>
+    <hr />
+    <p>
+      欢迎来到我的网站
+      <br />
+      <a href="">跳转到详情页</a>
+    </p>
+    <button id="jump">点击加载更多</button>
+
+    <script>
+      let btn = document.querySelector('#jump')
+      btn.addEventListener('click', () => {
+        let ajax = new XMLHttpRequest()
+        ajax.open('get', '/get_data')
+        ajax.onreadystatechange = () => {
+          console.log(ajax.readyState)
+          console.log(ajax.status)
+          if (ajax.readyState === 4 && ajax.status === 200) {
+            console.log(JSON.parse(ajax.responseText))
+          }
+        }
+        ajax.send()
+      })
+    </script>
+  </body>
+</html>

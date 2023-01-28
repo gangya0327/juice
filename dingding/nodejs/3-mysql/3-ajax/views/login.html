@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <div>用户名：<input type="text" name="username" id="username" /></div>
+      <div>密码：<input type="password" name="password" id="password" /></div>
+      <!-- <div><input type="submit" id="login" value="登录" /></div> -->
+      <div><input type="button" id="login" value="登录" /></div>
+    </form>
+
+    <script>
+      let loginBtn = document.querySelector('#login')
+      loginBtn.addEventListener('click', () => {
+        let username = document.querySelector('#username').value
+        let password = document.querySelector('#password').value
+        const params = { username, password }
+        let ajax = new XMLHttpRequest()
+        ajax.open('POST', '/login_post')
+        ajax.onreadystatechange = () => {
+          if (ajax.readyState === 4 && ajax.status === 200) {
+            const result = JSON.parse(ajax.responseText)
+            console.log('result :>> ', result)
+          }
+        }
+        ajax.send(JSON.stringify(params))
+      })
+    </script>
+  </body>
+</html>
