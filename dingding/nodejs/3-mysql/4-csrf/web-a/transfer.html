@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>我是页面A 交易页面</h2>
+
+    <form>
+      <div><input type="text" name="account" id="account" value="18768105813" placeholder="请输入转账账户" /></div>
+      <div><input type="number" name="money" id="money" value="5000" placeholder="请输入转账金额" /></div>
+      <div><input type="button" id="transferBtn" value="转账" /></div>
+    </form>
+
+    <script>
+      const transferBtn = document.querySelector('#transferBtn')
+      transferBtn.addEventListener('click', () => {
+        const account = document.querySelector('#account').value
+        const money = document.querySelector('#money').value
+        const params = { to_account: account, money: money }
+        const ajax = new XMLHttpRequest()
+        ajax.open('post', '/transfer', true)
+        ajax.setRequestHeader('Content-Type', 'application/json')
+        ajax.setRequestHeader('x-csrftoken', getCookie('csrf_token'))
+        ajax.onreadystatechange = () => {
+          if (ajax.readyState === 4 && ajax.status === 200) {
+            const { message } = JSON.parse(ajax.responseText)
+            alert(message)
+          }
+        }
+        ajax.send(JSON.stringify(params))
+      })
+
+      //获取cookie的函数
+      function getCookie(name) {
+        var r = document.cookie.match('\\b' + name + '=([^;]*)\\b')
+        return r[1]
+      }
+    </script>
+  </body>
+</html>

@@ -25,7 +25,7 @@ app.post('/login_post', (req, res) => {
     const { username, password } = JSON.parse(postData.toString())
     res.send({
       code: 200,
-      message: '登录成功',
+      message: '登录成功',w
       data: {
         name: username,
         pwd: password
