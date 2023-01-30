@@ -24,7 +24,23 @@ router.get('/get_data', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  res.render('index')
+  ;(async function () {
+    const userId = req.session['USER_ID']
+    // 获取数据库中id的用户信息
+    let result = []
+    if (userId) {
+      result = await handleDB(res, 'info_user', 'find', 'info_user查询出错', `id="${userId}"`)
+    }
+    const data = {
+      user_info: result[0]
+        ? {
+            nick_name: result[0].nick_name,
+            avatar_url: result[0].avatar_url,
+          }
+        : false
+    }
+    res.render('index', data)
+  })()
 })
 
 module.exports = router

@@ -36,7 +36,8 @@ async function handleDB(res, tableName, methodName, errorMsg, n1, n2) {
       })
     })
   } catch (error) {
-    res.send({ message: `${errorMsg} ${error.sqlMessage}`, code: 501 })
+    // res.send({ message: `${errorMsg} ${error.sqlMessage}`, code: 501 })
+    res.send({ errmsg: `${errorMsg} ${error.sqlMessage}`, code: 501 })
     return
   }
   return result

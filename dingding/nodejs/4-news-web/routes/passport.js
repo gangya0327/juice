@@ -55,4 +55,26 @@ router.post('/passport/register', (req, res) => {
   })()
 })
 
+// 登录
+router.post('/passport/login', (req, res) => {
+  ;(async function () {
+    const { username, password } = req.body
+    if (!username || !password) {
+      res.send({ errmsg: '缺少参数' })
+      return
+    }
+    const result = await handleDB(res, 'info_user', 'find', 'info_user查询出错', `username="${username}"`)
+    if (result.length === 0) {
+      res.send({ errmsg: '用户未注册' })
+      return
+    }
+    if (password !== result[0].password_hash) {
+      res.send({ errmsg: '用户名或密码不正确' })
+      return
+    }
+    req.session['USER_ID'] = result[0].id
+    res.send({ errno: '0', errmsg: '登录成功' })
+  })()
+})
+
 module.exports = router

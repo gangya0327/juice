@@ -105,23 +105,22 @@ $(function () {
       password: password
     }
 
-    // $.ajax({
-    //     url:'/passport/login',
-    //     type:'post',
-    //     data:JSON.stringify(params),
-    //     contentType:'application/json',
-    //     // headers:{'X-CSRFToken':getCookie('csrf_token')},
-    //     success: function (resp) {
-    //         //判断是否登陆成功
-    //         if(resp.errno == '0'){
-    //             alert("登录成功");
-    //             window.location.reload()
-    //         }else{
-    //             alert(resp.errmsg);
-    //         }
-
-    //     }
-    // })
+    $.ajax({
+      url: '/passport/login',
+      type: 'post',
+      data: JSON.stringify(params),
+      contentType: 'application/json',
+      // headers:{'X-CSRFToken':getCookie('csrf_token')},
+      success: function (resp) {
+        //判断是否登陆成功
+        if (resp.errno == '0') {
+          alert('登录成功')
+          window.location.reload()
+        } else {
+          alert(resp.errmsg)
+        }
+      }
+    })
   })
 
   // TODO 注册按钮点击
@@ -169,23 +168,23 @@ $(function () {
     }
 
     $.ajax({
-        url:'/passport/register',
-        type:'post',
-        data:JSON.stringify(params),
-        contentType:'application/json',
-        //headers:{'X-CSRFToken':getCookie('csrf_token')},
-        success: function (resp) {
-            console.log("回调成功了");
+      url: '/passport/register',
+      type: 'post',
+      data: JSON.stringify(params),
+      contentType: 'application/json',
+      //headers:{'X-CSRFToken':getCookie('csrf_token')},
+      success: function (resp) {
+        console.log('回调成功了')
 
-            //判断是否注册成功
-            if(resp.errno == '0'){
-                //重新加载当前页面
-                alert(resp.errmsg);
-                window.location.reload()
-            }else{
-                alert(resp.errmsg);
-            }
+        //判断是否注册成功
+        if (resp.errno == '0') {
+          //重新加载当前页面
+          alert(resp.errmsg)
+          window.location.reload()
+        } else {
+          alert(resp.errmsg)
         }
+      }
     })
   })
 })
