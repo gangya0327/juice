@@ -24,6 +24,25 @@ router.get('/get_data', (req, res) => {
   })()
 })
 
+// 首页新闻列表数据
+router.get('/news_list', (req, res) => {
+  ;(async function () {
+    // 获取参数，分类cid，当前页码page，每页条数per_page
+    const { cid, page, per_page } = req.query
+    // 查询数据库
+    const result = await handleDB(res, 'info_news', 'limit', 'info_news查询出错', {
+      // where: `category_id=${cid} order by create_time desc`,
+      // where=1表示查询全部
+      where: `${cid === '1' ? 1 : 'category_id=' + cid} order by create_time desc`,
+      number: page,
+      count: per_page
+    })
+    res.send({
+      newsList: result
+    })
+  })()
+})
+
 router.get('/', (req, res) => {
   ;(async function () {
     const userId = req.session['USER_ID']
