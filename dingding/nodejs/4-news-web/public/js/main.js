@@ -191,14 +191,15 @@ $(function () {
 
 //退出登陆
 function logout() {
-  // $.ajax({
-  //     url:'/passport/logout',
-  //     type:'post',
-  //     //headers:{'X-CSRFToken':getCookie('csrf_token')},
-  //     success:function (resp) {
-  //         window.location.reload()
-  //     }
-  // })
+  $.ajax({
+    url: '/passport/logout',
+    type: 'post',
+    //headers:{'X-CSRFToken':getCookie('csrf_token')},
+    success: function (resp) {
+      alert(resp.errmsg)
+      window.location.reload()
+    }
+  })
 }
 
 // 生成图片验证码，原理：设置图片的路径(请求路径)，浏览器向服务器请求一个验证码图片

@@ -77,4 +77,10 @@ router.post('/passport/login', (req, res) => {
   })()
 })
 
+// 退出登录
+router.post('/passport/logout', (req, res) => {
+  delete req.session['USER_ID']
+  res.send({ errno: '0', errmsg: '退出成功' })
+})
+
 module.exports = router
