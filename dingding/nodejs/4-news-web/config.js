@@ -7,6 +7,9 @@ const cookieSession = require('cookie-session')
 const indexRouter = require('./routes/index')
 const passportRouter = require('./routes/passport')
 
+const common = require('./utils/common')
+const keys = require('./keys')
+
 class AppConfig {
   constructor(app) {
     this.app = app
@@ -32,14 +35,15 @@ class AppConfig {
     this.app.use(
       cookieSession({
         name: 'news-session',
-        keys: ['ub13fa5^&41n1)kma1'],
+        // keys: ['ub13fa5^&41n1)kma1'],
+        keys: [keys.session_keys],
         maxAge: 1000 * 60 * 6 * 1 // 设置超期时间
       })
     )
 
     // 设置路由
-    this.app.use(indexRouter)
-    this.app.use(passportRouter)
+    this.app.use(common.csrfProtect, indexRouter)
+    this.app.use(common.csrfProtect, passportRouter)
   }
 }
 

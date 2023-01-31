@@ -3,6 +3,8 @@ const router = express.Router()
 // 引入验证码工具
 const Captcha = require('../utils/captcha')
 const handleDB = require('../database/handleDB')
+const md5 = require('md5')
+const keys = require('../keys')
 
 // 验证码
 router.get('/passport/image_code/:randomCode', (req, res) => {
@@ -12,7 +14,6 @@ router.get('/passport/image_code/:randomCode', (req, res) => {
 
   // 将验证码的文本信息存入session
   req.session['IMG_CODE'] = captcha.text
-  // console.log('req.session :>> ', req.session)
 
   // 配合img标签的src属性，显示图片需要设置响应头
   res.setHeader('content-type', 'image/svg+xml')
@@ -30,7 +31,7 @@ router.post('/passport/register', (req, res) => {
       return
     }
     // 校验码图片验证码
-    if (image_code.toLowerCase() !== req.session['IMG_CODE']) {
+    if (image_code.toLowerCase() !== req.session['IMG_CODE'].toLowerCase()) {
       res.send({ errmsg: '验证码错误' })
       return
     }
@@ -41,10 +42,12 @@ router.post('/passport/register', (req, res) => {
       return
     }
     // 用户不存在时，向数据库创建用户数据
+    // 双重加盐加密
+    const password_md5 = md5(md5(password) + keys.password_salt)
     const newUser = await handleDB(res, 'info_user', 'insert', '新增用户出错', {
       username,
       nick_name: username,
-      password_hash: password
+      password_hash: password_md5
     })
     // 注册完成，用户变为登录状态
     req.session['USER_ID'] = newUser.insertId
@@ -68,7 +71,7 @@ router.post('/passport/login', (req, res) => {
       res.send({ errmsg: '用户未注册' })
       return
     }
-    if (password !== result[0].password_hash) {
+    if (md5(md5(password) + keys.password_salt) !== result[0].password_hash) {
       res.send({ errmsg: '用户名或密码不正确' })
       return
     }
