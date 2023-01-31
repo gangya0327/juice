@@ -1,5 +1,6 @@
 const express = require('express')
 const handleDB = require('../database/handleDB')
+require('../utils/filters')
 
 const router = express.Router()
 
@@ -31,13 +32,25 @@ router.get('/', (req, res) => {
     if (userId) {
       result = await handleDB(res, 'info_user', 'find', 'info_user查询出错', `id="${userId}"`)
     }
+    // 首页头部分类
+    const category = await handleDB(res, 'info_category', 'find', 'info_category查询出错', ['name'])
+    // 右侧点击排行
+    const clickRanking = await handleDB(
+      res,
+      'info_news',
+      'sql',
+      'info_news查询出错',
+      'select title from info_news order by clicks desc limit 6'
+    )
     const data = {
       user_info: result[0]
         ? {
             nick_name: result[0].nick_name,
-            avatar_url: result[0].avatar_url,
+            avatar_url: result[0].avatar_url
           }
-        : false
+        : false,
+      category,
+      clickRanking
     }
     res.render('index', data)
   })()
