@@ -30,15 +30,26 @@ router.get('/news_list', (req, res) => {
     // 获取参数，分类cid，当前页码page，每页条数per_page
     const { cid, page, per_page } = req.query
     // 查询数据库
+    const where = `${cid === '1' ? 1 : 'category_id=' + cid} order by create_time desc`
     const result = await handleDB(res, 'info_news', 'limit', 'info_news查询出错', {
       // where: `category_id=${cid} order by create_time desc`,
       // where=1表示查询全部
-      where: `${cid === '1' ? 1 : 'category_id=' + cid} order by create_time desc`,
+      where: where,
       number: page,
       count: per_page
     })
+    const total = await handleDB(
+      res,
+      'info_news',
+      'sql',
+      'info_news查询出错',
+      'select count(*) from info_news where ' + where
+    )
+    const totalPage = Math.ceil(total[0]['count(*)'] / per_page)
     res.send({
-      newsList: result
+      newsList: result,
+      totalPage: totalPage,
+      currentPage: parseInt(page)
     })
   })()
 })
@@ -59,7 +70,7 @@ router.get('/', (req, res) => {
       'info_news',
       'sql',
       'info_news查询出错',
-      'select title from info_news order by clicks desc limit 6'
+      'select title,id from info_news order by clicks desc limit 6'
     )
     const data = {
       user_info: result[0]

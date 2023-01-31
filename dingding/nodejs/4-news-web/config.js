@@ -4,8 +4,9 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 
-const indexRouter = require('./routes/index')
 const passportRouter = require('./routes/passport')
+const indexRouter = require('./routes/index')
+const detailRouter = require('./routes/detail')
 
 const common = require('./utils/common')
 const keys = require('./keys')
@@ -42,8 +43,9 @@ class AppConfig {
     )
 
     // 设置路由
-    this.app.use(common.csrfProtect, indexRouter)
     this.app.use(common.csrfProtect, passportRouter)
+    this.app.use(common.csrfProtect, indexRouter)
+    this.app.use(common.csrfProtect, detailRouter)
   }
 }
 
