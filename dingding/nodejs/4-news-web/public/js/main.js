@@ -127,14 +127,12 @@ $(function () {
   $('.register_form_con').submit(function (e) {
     // 阻止默认提交操作,不让其往默认的action提交
     e.preventDefault()
-    console.log('点击了注册按钮')
 
     // 取到用户输入的内容
     var username = $('#register_mobile').val()
     var imageCode = $('#imagecode').val()
     var password = $('#register_password').val()
     var agree = $('.register_form_con .agree_input').prop('checked')
-    console.log(username, imageCode, password, agree)
     if (!username) {
       $('#register-mobile-err').show()
       return
@@ -174,8 +172,6 @@ $(function () {
       contentType: 'application/json',
       headers: { 'X-CSRFToken': getCookie('csrf_token') },
       success: function (resp) {
-        console.log('回调成功了')
-
         //判断是否注册成功
         if (resp.errno == '0') {
           //重新加载当前页面

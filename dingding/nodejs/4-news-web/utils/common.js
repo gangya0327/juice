@@ -15,10 +15,7 @@ function csrfProtect(req, res, next) {
     res.cookie('csrf_token', csrf_token)
     next()
   } else if (req.method === 'POST') {
-    // console.log(req.headers['x-csrftoken'])
-    // console.log(req.cookies['csrf_token'])
     if (req.headers['x-csrftoken'] === req.cookies['csrf_token']) {
-      console.log('csrf验证通过')
       next()
     } else {
       res.send({ errmsg: 'csrf验证不通过' })

@@ -28,15 +28,54 @@ router.get('/news_detail/:news_id', (req, res) => {
     await handleDB(res, 'info_news', 'update', 'info_news修改出错', `id=${news_id}`, { clicks: newClicks })
     // 判断用户是否收藏该新闻
     let isCollected = false
-    const collectResult = await handleDB(
+    if (result[0]) {
+      const collectResult = await handleDB(
+        res,
+        'info_user_collection',
+        'find',
+        'info_user_collection查询出错',
+        `user_id=${result[0].id} and news_id=${news_id}`
+      )
+      if (collectResult[0]) {
+        isCollected = true
+      }
+    }
+    // 查询评论及回复
+    const commentResult = await handleDB(
       res,
-      'info_user_collection',
+      'info_comment',
       'find',
-      'info_user_collection查询出错',
-      `user_id=${result[0].id} and news_id=${news_id}`
+      'info_comment查询出错',
+      `news_id=${news_id} order by create_time desc`
     )
-    if (collectResult[0]) {
-      isCollected = true
+    // 给每一条评论添加评论者信息
+    for (let i = 0; i < commentResult.length; i++) {
+      const commenterResult = await handleDB(res, 'info_user', 'find', '用户查询出错', `id=${commentResult[i].user_id}`)
+      commentResult[i].commenter = {
+        avatar_url: commenterResult[0].avatar_url ? commenterResult[0].avatar_url : '../images/worm.jpg',
+        nick_name: commenterResult[0].nick_name
+      }
+      if (commentResult[i].parent_id) {
+        // 若有父级评论，查询父级评论的评论者和内容
+        var parentResult = await handleDB(
+          res,
+          'info_comment',
+          'find',
+          'info_comment添加失败',
+          `id=${commentResult[i].parent_id}`
+        )
+        var parentCommenterResult = await handleDB(
+          res,
+          'info_user',
+          'find',
+          'info_user添加失败',
+          `id=${parentResult[0].user_id}`
+        )
+        commentResult[i].parent = {
+          user: { nick_name: parentCommenterResult[0].nick_name },
+          content: parentResult[0].content
+        }
+      }
     }
     const data = {
       user_info: result[0]
@@ -47,7 +86,8 @@ router.get('/news_detail/:news_id', (req, res) => {
         : false,
       clickRanking,
       newsDetail: newsDetail[0],
-      isCollected: isCollected
+      isCollected: isCollected,
+      commentResult: commentResult
     }
     res.render('detail', data)
   })()
@@ -66,6 +106,7 @@ router.post('/news_detail/news_collect', async (req, res) => {
     res.send({ errmsg: '缺少参数' })
     return
   }
+  // 查询新闻内容
   const newsDetail = await handleDB(res, 'info_news', 'find', 'info_news查询出错', `id=${news_id}`)
   if (!newsDetail[0]) {
     res.send({ errmsg: '新闻内容不存在' })
@@ -88,6 +129,63 @@ router.post('/news_detail/news_collect', async (req, res) => {
     )
   }
   res.send({ errno: '0', errmsg: '操作成功' })
+})
+
+router.post('/news_detail/news_comment', async (req, res) => {
+  // 判断用户登录状态
+  const result = await common.getUserLogin(req, res)
+  if (!result[0]) {
+    res.send({ errno: '4101', errmsg: '用户未登录' })
+    return
+  }
+  // 获取参数，判空
+  const { news_id, comment, parent_id } = req.body
+  if (!news_id || !comment) {
+    res.send({ errmsg: '缺少参数' })
+    return
+  }
+  // 查询新闻内容
+  const newsDetail = await handleDB(res, 'info_news', 'find', 'info_news查询出错', `id=${news_id}`)
+  if (!newsDetail[0]) {
+    res.send({ errmsg: '新闻内容不存在' })
+    return
+  }
+  // 添加评论
+  const insertObj = {
+    user_id: result[0].id,
+    news_id: news_id,
+    content: comment
+  }
+  if (parent_id) {
+    insertObj.parent_id = parent_id
+    // 若有父级评论，查询父级评论的评论者和内容
+    var parentResult = await handleDB(res, 'info_comment', 'find', 'info_comment添加失败', `id=${parent_id}`)
+    var parentCommenterResult = await handleDB(
+      res,
+      'info_user',
+      'find',
+      'info_user添加失败',
+      `id=${parentResult[0].user_id}`
+    )
+  }
+  const insertResult = await handleDB(res, 'info_comment', 'insert', 'info_comment添加失败', insertObj)
+  const data = {
+    user: {
+      avatar_url: result[0].avatar_url ? result[0].avatar_url : '../images/worm.jpg',
+      nick_name: result[0].nick_name
+    },
+    content: comment,
+    create_time: new Date(),
+    id: insertResult.insertId,
+    news_id: news_id,
+    parent: parent_id
+      ? {
+          user: { nick_name: parentCommenterResult[0].nick_name },
+          content: parentResult[0].content
+        }
+      : null
+  }
+  res.send({ errno: '0', errmsg: '操作成功', data })
 })
 
 module.exports = router
