@@ -1,6 +1,7 @@
 const express = require('express')
 const handleDB = require('../database/handleDB')
 require('../utils/filters')
+const common = require('../utils/common')
 
 const router = express.Router()
 
@@ -56,12 +57,7 @@ router.get('/news_list', (req, res) => {
 
 router.get('/', (req, res) => {
   ;(async function () {
-    const userId = req.session['USER_ID']
-    // 获取数据库中id的用户信息
-    let result = []
-    if (userId) {
-      result = await handleDB(res, 'info_user', 'find', 'info_user查询出错', `id="${userId}"`)
-    }
+    const result = await common.getUserLogin(req, res)
     // 首页头部分类
     const category = await handleDB(res, 'info_category', 'find', 'info_category查询出错', ['name'])
     // 右侧点击排行

@@ -1,17 +1,13 @@
 const express = require('express')
 const handleDB = require('../database/handleDB')
 require('../utils/filters')
+const common = require('../utils/common')
 
 const router = express.Router()
 
 router.get('/news_detail/:news_id', (req, res) => {
   ;(async function () {
-    const userId = req.session['USER_ID']
-    // 获取数据库中id的用户信息
-    let result = []
-    if (userId) {
-      result = await handleDB(res, 'info_user', 'find', 'info_user查询出错', `id="${userId}"`)
-    }
+    const result = await common.getUserLogin(req, res)
     // 右侧点击排行
     const clickRanking = await handleDB(
       res,
@@ -23,6 +19,11 @@ router.get('/news_detail/:news_id', (req, res) => {
     // 新闻详情
     const { news_id } = req.params
     const newsDetail = await handleDB(res, 'info_news', 'find', 'info_news查询出错', `id=${news_id}`)
+    // 判断数据存在
+    if (!newsDetail[0]) {
+      await common.abort404(req, res)
+      return
+    }
     const newClicks = newsDetail[0].clicks + 1
     await handleDB(res, 'info_news', 'update', 'info_news修改出错', `id=${news_id}`, { clicks: newClicks })
     const data = {
@@ -35,7 +36,6 @@ router.get('/news_detail/:news_id', (req, res) => {
       clickRanking,
       newsDetail: newsDetail[0]
     }
-
     res.render('detail', data)
   })()
 })

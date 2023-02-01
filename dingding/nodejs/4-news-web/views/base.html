@@ -13,9 +13,8 @@
   <body>
     <div class="header_con">
       <div class="header">
-        <a href="#" class="logo fl"><img src="../images/logo.png" alt="logo" /></a>
-        {{block 'menuBlock'}}{{/block}}
-        {{if !user_info}}
+        <a href="/" class="logo fl"><img src="../images/logo.png" alt="logo" /></a>
+        {{block 'menuBlock'}}{{/block}} {{if !user_info}}
         <div class="user_btns fr">
           <a href="javascript:;" class="login_btn">登录</a> / <a href="javascript:;" class="register_btn">注册</a>
         </div>
@@ -30,10 +29,11 @@
       </div>
     </div>
 
+    {{block 'contentBlock'}}
     <div class="conter_con">
       {{block 'contentLeftBlock'}}{{/block}}
       <div class="rank_con fr">
-      {{block 'authorBlock'}}{{/block}}
+        {{block 'authorBlock'}}{{/block}}
         <div class="rank_title">
           <h3>点击排行</h3>
         </div>
@@ -55,6 +55,8 @@
         </ul>
       </div>
     </div>
+    {{/block}}
+
     <div class="footer">
       <div class="footer_links">
         <a href="">关于我们</a>
