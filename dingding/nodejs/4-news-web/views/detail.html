@@ -1,6 +1,7 @@
 {{extend './base.html'}}
 {{block 'titleBlock'}}文章详情页{{/block}}
 {{block 'contentLeftBlock'}}
+<!-- {{block 'scriptBlock'}}<script type="text/javascript" src="../js/detail.js"></script>{{/block}} -->
 <div class="detail_con fl">
   <h3>{{newsDetail.title}}</h3>
   <div class="detail_about clearfix">
@@ -12,15 +13,17 @@
 
   {{@ newsDetail.content}}
 
-  <a href="javascript:;" class="collection block-center" data-newid="">收藏</a>
-  <a href="javascript:;" class="collected block-center" data-newid="" style="display: none"
-    ><span class="out">已收藏</span><span class="over">取消收藏</span></a
-  >
+  <a href="javascript:;" class="collection block-center" data-newid="{{newsDetail.id}}"
+    style="display: {{isCollected ? 'none' : 'block'}}">收藏</a>
+  <a href="javascript:;" class="collected block-center" data-newid="{{newsDetail.id}}"
+    style="display: {{isCollected ? 'block' : 'none'}}">
+    <span class="out">已收藏</span><span class="over">取消收藏</span>
+  </a>
 
   {{if !user_info}}
   <div class="comment_form_logout">登录发表你的评论</div>
-  {{else}}
-  <form action="" class="comment_form">
+  {{else}} 
+  <form action="" class="comment_form" data-newid="{{newsDetail.id}}">
     <div class="person_pic">
       <img src="../images/worm.jpg" alt="用户图标" />
     </div>

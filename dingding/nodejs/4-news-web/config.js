@@ -38,7 +38,7 @@ class AppConfig {
         name: 'news-session',
         // keys: ['ub13fa5^&41n1)kma1'],
         keys: [keys.session_keys],
-        maxAge: 1000 * 60 * 60 * 1 // 设置超期时间
+        maxAge: 1000 * 60 * 60 * 6 // 设置超期时间
       })
     )
 
