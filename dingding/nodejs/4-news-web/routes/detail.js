@@ -77,6 +77,20 @@ router.get('/news_detail/:news_id', (req, res) => {
         }
       }
     }
+    // 取出所有点赞用户
+    const user_like_comment_ids = []
+    if (result[0]) {
+      const user_like_commentResult = await handleDB(
+        res,
+        'info_comment_like',
+        'find',
+        'info_comment_like查询出错',
+        `user_id=${result[0].id}`
+      )
+      user_like_commentResult.map((item) => {
+        user_like_comment_ids.push(item.comment_id)
+      })
+    }
     const data = {
       user_info: result[0]
         ? {
@@ -87,12 +101,14 @@ router.get('/news_detail/:news_id', (req, res) => {
       clickRanking,
       newsDetail: newsDetail[0],
       isCollected: isCollected,
-      commentResult: commentResult
+      commentResult: commentResult,
+      user_like_comment_ids
     }
     res.render('detail', data)
   })()
 })
 
+// 收藏
 router.post('/news_detail/news_collect', async (req, res) => {
   // 判断用户登录状态
   const result = await common.getUserLogin(req, res)
@@ -131,6 +147,7 @@ router.post('/news_detail/news_collect', async (req, res) => {
   res.send({ errno: '0', errmsg: '操作成功' })
 })
 
+// 评论
 router.post('/news_detail/news_comment', async (req, res) => {
   // 判断用户登录状态
   const result = await common.getUserLogin(req, res)
@@ -186,6 +203,51 @@ router.post('/news_detail/news_comment', async (req, res) => {
       : null
   }
   res.send({ errno: '0', errmsg: '操作成功', data })
+})
+
+// 点赞
+router.post('/news_detail/comment_like', async (req, res) => {
+  // 判断用户登录状态
+  const result = await common.getUserLogin(req, res)
+  if (!result[0]) {
+    res.send({ errno: '4101', errmsg: '用户未登录' })
+    return
+  }
+  // 获取参数，判空
+  const { comment_id, action } = req.body
+  if (!comment_id || !action) {
+    res.send({ errmsg: '缺少参数' })
+    return
+  }
+  // 查询数据库，评论是否存在
+  const commentResult = await handleDB(res, 'info_comment', 'find', 'info_comment查询出错', `id=${comment_id}`)
+  console.log('commentResult[0].like_count :>> ', commentResult[0].like_count)
+  if (!commentResult[0]) {
+    res.send({
+      errmsg: '评论不存在'
+    })
+    return
+  }
+  // 根据action是add还是remove，执行点赞或取消点赞
+  let like_count
+  if (action === 'add') {
+    await handleDB(res, 'info_comment_like', 'insert', '添加失败', {
+      user_id: result[0].id,
+      comment_id
+    })
+    like_count = commentResult[0].like_count ? commentResult[0].like_count + 1 : 1
+  } else {
+    await handleDB(
+      res,
+      'info_comment_like',
+      'delete',
+      '删除失败',
+      `user_id=${result[0].id} and comment_id=${comment_id}`
+    )
+    like_count = commentResult[0].like_count ? commentResult[0].like_count - 1 : 0
+  }
+  await handleDB(res, 'info_comment', 'update', '修改失败', `id=${comment_id}`, { like_count })
+  res.send({ errno: '0', errmsg: '操作成功' })
 })
 
 module.exports = router

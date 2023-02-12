@@ -181,66 +181,63 @@ $(function () {
 
     // 点赞处理
     if (sHandler.indexOf('comment_up') >= 0) {
-      /*
-            var $this = $(this);
-            var action = "add"
-            if(sHandler.indexOf('has_comment_up')>=0)
-            {
-                // 如果当前该评论已经是点赞状态，再次点击会进行到此代码块内，代表要取消点赞
-                action = "remove"
+      var $this = $(this)
+      var action = 'add'
+      if (sHandler.indexOf('has_comment_up') >= 0) {
+        // 如果当前该评论已经是点赞状态，再次点击会进行到此代码块内，代表要取消点赞
+        action = 'remove'
+      }
+      //获取到当前点击的标签上面的, 评论编号, 新闻编号
+      var comment_id = $(this).attr('data-commentid')
+      // var news_id = $(this).attr("data-newsid")
+      var params = {
+        comment_id: comment_id,
+        action: action
+        // "news_id": news_id
+      }
+
+      $.ajax({
+        url: '/news_detail/comment_like',
+        type: 'post',
+        contentType: 'application/json',
+        headers: {
+          'X-CSRFToken': getCookie('csrf_token')
+        },
+        data: JSON.stringify(params),
+        success: function (resp) {
+          if (resp.errno == '0') {
+            //获取到当前标签中的点赞数量
+            var like_count = $this.attr('data-likecount')
+
+            //增加安全性校验,如果获取不到data-likecount的值,那么默认设置成0
+            if (like_count == undefined) {
+              like_count = 0
             }
-            //获取到当前点击的标签上面的, 评论编号, 新闻编号
-            var comment_id = $(this).attr("data-commentid")
-            // var news_id = $(this).attr("data-newsid")
-            var params = {
-                "comment_id": comment_id,
-                "action": action,
-                // "news_id": news_id
+
+            // 更新点赞按钮图标,并加1, 减1操作
+            if (action == 'add') {
+              like_count = parseInt(like_count) + 1
+              // 代表是点赞
+              $this.addClass('has_comment_up')
+            } else {
+              like_count = parseInt(like_count) - 1
+              $this.removeClass('has_comment_up')
             }
 
-            $.ajax({
-                url: "/news_detail/comment_like",
-                type: "post",
-                contentType: "application/json",
-                headers: {
-                    "X-CSRFToken": getCookie("csrf_token")
-                },
-                data: JSON.stringify(params),
-                success: function (resp) {
-                    if (resp.errno == "0") {
-                        //获取到当前标签中的点赞数量
-                        var like_count = $this.attr('data-likecount')
-
-                        //增加安全性校验,如果获取不到data-likecount的值,那么默认设置成0
-                        if(like_count == undefined){
-                            like_count = 0;
-                        }
-
-                        // 更新点赞按钮图标,并加1, 减1操作
-                        if (action == "add") {
-                            like_count = parseInt(like_count) + 1
-                            // 代表是点赞
-                            $this.addClass('has_comment_up')
-                        }else {
-                            like_count = parseInt(like_count) - 1
-                            $this.removeClass('has_comment_up')
-                        }
-
-                        // 更新点赞数据,重新赋值回去
-                        $this.attr('data-likecount', like_count)
-                        if (like_count == 0) {
-                            $this.news("赞")
-                        }else {
-                            $this.news(like_count)
-                        }
-                    }else if (resp.errno == "4101"){
-                        $('.login_form_con').show();
-                    }else {
-                        alert(resp.errmsg)
-                    }
-                }
-            })
-            */
+            // 更新点赞数据,重新赋值回去
+            $this.attr('data-likecount', like_count)
+            if (like_count == 0) {
+              $this.html('赞')
+            } else {
+              $this.html(like_count)
+            }
+          } else if (resp.errno == '4101') {
+            $('.login_form_con').show()
+          } else {
+            alert(resp.errmsg)
+          }
+        }
+      })
     }
 
     // 评论回复
@@ -271,21 +268,21 @@ $(function () {
           if (resp.errno == '0') {
             var comment = resp.data
             const dateFormat = (value) => {
-                const d = new Date(value)
-                return (
-                  d.getFullYear() +
-                  '-' +
-                  (d.getMonth() + 1) +
-                  '-' +
-                  d.getDate() +
-                  ' ' +
-                  d.getHours() +
-                  ':' +
-                  d.getMinutes() +
-                  ':' +
-                  d.getSeconds()
-                )
-              }
+              const d = new Date(value)
+              return (
+                d.getFullYear() +
+                '-' +
+                (d.getMonth() + 1) +
+                '-' +
+                d.getDate() +
+                ' ' +
+                d.getHours() +
+                ':' +
+                d.getMinutes() +
+                ':' +
+                d.getSeconds()
+              )
+            }
             // 拼接内容
             var comment_html = ''
             comment_html += '<div class="comment_list">'
