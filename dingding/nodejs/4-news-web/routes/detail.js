@@ -111,14 +111,16 @@ router.get('/news_detail/:news_id', (req, res) => {
     )
     // 判断登录用户是否关注作者
     let isFollowed = false
-    followResult = await handleDB(
-      res,
-      'info_user_fans',
-      'find',
-      'info_user_fans查询失败',
-      `follower_id=${result[0].id} and followed_id=${authorResult[0].id}`
-    )
-    if (followResult[0]) isFollowed = true
+    if (result[0]) {
+      followResult = await handleDB(
+        res,
+        'info_user_fans',
+        'find',
+        'info_user_fans查询失败',
+        `follower_id=${result[0].id} and followed_id=${authorResult[0].id}`
+      )
+      if (followResult[0]) isFollowed = true
+    }
     const data = {
       user_info: result[0]
         ? {
@@ -311,4 +313,5 @@ router.post('/news_detail/followed_user', async (req, res) => {
   }
   res.send({ errno: '0', errmsg: '操作成功' })
 })
+
 module.exports = router

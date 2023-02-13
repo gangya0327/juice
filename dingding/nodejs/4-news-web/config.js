@@ -7,6 +7,7 @@ const cookieSession = require('cookie-session')
 const passportRouter = require('./routes/passport')
 const indexRouter = require('./routes/index')
 const detailRouter = require('./routes/detail')
+const profileRouter = require('./routes/profile')
 
 const common = require('./utils/common')
 const keys = require('./keys')
@@ -46,6 +47,7 @@ class AppConfig {
     this.app.use(common.csrfProtect, passportRouter)
     this.app.use(common.csrfProtect, indexRouter)
     this.app.use(common.csrfProtect, detailRouter)
+    this.app.use(common.csrfProtect, profileRouter)
     this.app.use(async (req, res) => {
       common.abort404(req, res)
     })
