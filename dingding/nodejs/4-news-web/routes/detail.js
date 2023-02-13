@@ -91,6 +91,34 @@ router.get('/news_detail/:news_id', (req, res) => {
         user_like_comment_ids.push(item.comment_id)
       })
     }
+    // 查询新闻作者信息
+    const authorResult = await handleDB(res, 'info_user', 'find', 'info_user查询失败', `id=${newsDetail[0].user_id}`)
+    // 查询作者发布新闻数
+    const authorNewsResult = await handleDB(
+      res,
+      'info_news',
+      'sql',
+      'info_news查询失败',
+      `select count(*) from info_news where user_id=${authorResult[0].id}`
+    )
+    // 查询作者粉丝数
+    const authorFansResult = await handleDB(
+      res,
+      'info_user_fans',
+      'sql',
+      'info_user_fans',
+      `select count(*) from info_user_fans where followed_id=${authorResult[0].id}`
+    )
+    // 判断登录用户是否关注作者
+    let isFollowed = false
+    followResult = await handleDB(
+      res,
+      'info_user_fans',
+      'find',
+      'info_user_fans查询失败',
+      `follower_id=${result[0].id} and followed_id=${authorResult[0].id}`
+    )
+    if (followResult[0]) isFollowed = true
     const data = {
       user_info: result[0]
         ? {
@@ -102,7 +130,11 @@ router.get('/news_detail/:news_id', (req, res) => {
       newsDetail: newsDetail[0],
       isCollected: isCollected,
       commentResult: commentResult,
-      user_like_comment_ids
+      user_like_comment_ids,
+      authorResult: authorResult[0],
+      authorNewsResult: authorNewsResult[0]['count(*)'],
+      authorFansResult: authorFansResult[0]['count(*)'],
+      isFollowed
     }
     res.render('detail', data)
   })()
@@ -250,4 +282,33 @@ router.post('/news_detail/comment_like', async (req, res) => {
   res.send({ errno: '0', errmsg: '操作成功' })
 })
 
+// 关注
+router.post('/news_detail/followed_user', async (req, res) => {
+  const result = await common.getUserLogin(req, res)
+  if (!result[0]) {
+    res.send({ errno: '4101', errmsg: '用户未登录' })
+    return
+  }
+  // 获取参数，判空
+  const { user_id, action } = req.body
+  if (!user_id || !action) {
+    res.send({ errmsg: '缺少参数' })
+    return
+  }
+  if (action === 'follow') {
+    await handleDB(res, 'info_user_fans', 'insert', '新增失败', {
+      follower_id: result[0].id,
+      followed_id: user_id
+    })
+  } else {
+    await handleDB(
+      res,
+      'info_user_fans',
+      'delete',
+      '删除失败',
+      `follower_id=${result[0].id} and followed_id=${user_id}`
+    )
+  }
+  res.send({ errno: '0', errmsg: '操作成功' })
+})
 module.exports = router
