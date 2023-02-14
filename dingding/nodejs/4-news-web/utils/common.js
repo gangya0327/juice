@@ -35,6 +35,12 @@ async function getUserLogin(req, res) {
   return result
 }
 
+async function getUserInfo(req, res) {
+  let result = await getUserLogin(req, res)
+  if (!result[0]) res.redirect('/')
+  return result
+}
+
 async function abort404(req, res) {
   const result = await getUserLogin(req, res)
   res.render('404', {
@@ -50,5 +56,6 @@ async function abort404(req, res) {
 module.exports = {
   csrfProtect,
   getUserLogin,
+  getUserInfo,
   abort404
 }
