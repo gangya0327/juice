@@ -2,13 +2,15 @@
   <button
     class="yzd-button"
     :class="[theme, isBorder, isRound, btnSize]"
-    :disabled="disabled"
-    :style="minWidthStyle"
+    :disabled="disabled || loading || load"
+    :style="[minWidthStyle, blockStyle]"
+    @click="change"
   >
     <span>
-      <i v-if="iconPrefix" class="iconfont icon-prefix" :class="[iconPrefix]"></i>
+      <i v-if="iconPrefix" class="icon-prefix iconfont" :class="[iconPrefix]"></i>
+      <i v-if="loading || load" class="icon-prefix iconfont icon-loading"></i>
       <slot />
-      <i v-if="iconSuffix" class="iconfont icon-suffix" :class="[iconSuffix]"></i>
+      <i v-if="iconSuffix" class="icon-suffix iconfont" :class="[iconSuffix]"></i>
     </span>
   </button>
 </template>
@@ -40,6 +42,14 @@ export default {
     border: Boolean,
     round: Boolean,
     disabled: Boolean,
+    block: Boolean,
+    loading: Boolean,
+    beforeChange: Function,
+  },
+  data() {
+    return {
+      load: false,
+    };
   },
   computed: {
     theme() {
@@ -63,116 +73,30 @@ export default {
     iconSuffix() {
       return this.suffix ? `icon-${this.suffix}` : '';
     },
+    blockStyle() {
+      return this.block ? { display: 'block', width: '100%' } : {};
+    },
+  },
+  methods: {
+    // 事件回调
+    change() {
+      if (typeof this.beforeChange === 'function') {
+        this.load = true;
+        this.beforeChange()
+          .then(() => {
+            this.load = false;
+          })
+          .catch((err) => {
+            this.load = false;
+            console.log('err :>> ', err);
+          });
+      }
+      this.$emit('click');
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.yzd-button {
-  padding: 0 20px;
-  // min-width: 98px;
-  height: 40px;
-  border-radius: 4px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #dcdfe6;
-  background-color: #fff;
-  font-size: 14px;
-  color: #606266;
-  cursor: pointer;
-  + .yzd-button {
-    margin-left: 10px;
-  }
-  &.is-border {
-    background-color: #fff;
-    color: #606266;
-  }
-  &[disabled] {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-  > span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  i {
-    display: flex;
-    align-items: center;
-  }
-  .icon-prefix {
-    margin-right: 10px;
-  }
-  .icon-suffix {
-    margin-left: 10px;
-  }
-}
-.yzd-button-primary {
-  border-color: #409eff;
-  background-color: #409eff;
-  color: #fff;
-  &.is-border {
-    background-color: #fff;
-    color: #409eff;
-  }
-}
-.yzd-button-success {
-  border-color: #00d100;
-  background-color: #00d100;
-  color: #fff;
-  &.is-border {
-    background-color: #fff;
-    color: #00d100;
-  }
-}
-.yzd-button-warning {
-  border-color: #e6a23c;
-  background-color: #e6a23c;
-  color: #fff;
-  &.is-border {
-    background-color: #fff;
-    color: #e6a23c;
-  }
-}
-.yzd-button-danger {
-  border-color: #f56c6c;
-  background-color: #f56c6c;
-  color: #fff;
-  &.is-border {
-    background-color: #fff;
-    color: #f56c6c;
-  }
-}
-.is-round {
-  border-radius: 30px;
-}
-.yzd-button-medium {
-  padding: 0 12px;
-  height: 36px;
-}
-.yzd-button-small {
-  padding: 0 10px;
-  height: 30px;
-  font-size: 12px;
-  .icon-prefix {
-    margin-right: 5px;
-  }
-  .icon-suffix {
-    margin-left: 5px;
-  }
-}
-.yzd-button-mini {
-  padding: 0 8px;
-  height: 24px;
-  font-size: 10px;
-  i {
-    font-size: 12px;
-  }
-  .icon-prefix {
-    margin-right: 3px;
-  }
-  .icon-suffix {
-    margin-left: 3px;
-  }
-}
+@import './button.scss';
 </style>

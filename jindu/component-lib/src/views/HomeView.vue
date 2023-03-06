@@ -45,6 +45,17 @@
       <yzd-button type="warning" size="mini" border prefix="goods"> 图标按钮 </yzd-button>
       <yzd-button type="danger" size="mini" border prefix="squarecheckfill"> 图标按钮 </yzd-button>
     </div>
+    <div class="block">
+      <yzd-button type="primary" block>块级按钮 </yzd-button>
+    </div>
+    <div class="block">
+      <yzd-button type="primary" loading> 加载按钮 </yzd-button>
+      <yzd-button type="primary" :loading="flag" @click="handlerChange"> 点击主动加载 </yzd-button>
+      <yzd-button type="primary" :before-change="asyncFunction"> 点击异步加载 </yzd-button>
+    </div>
+    <div class="block">
+
+    </div>
   </div>
 </template>
 
@@ -54,15 +65,31 @@ export default {
   components: {
     'yzd-button': () => import('@/components/YzdButton/index.vue'),
   },
+  data() {
+    return {
+      flag: false,
+    };
+  },
+  methods: {
+    handlerChange() {
+      this.flag = true;
+      setTimeout(() => {
+        this.flag = false;
+      }, 2000);
+    },
+    asyncFunction() {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .block {
   margin-bottom: 10px;
-  div {
-    display: inline-block;
-    // margin-left: 20px;
-  }
 }
 </style>

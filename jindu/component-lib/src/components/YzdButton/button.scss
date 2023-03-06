@@ -1,0 +1,125 @@
+$primary: #409eff !default;
+$success: #00d100 !default;
+$warning: #e6a23c !default;
+$danger: #f56c6c !default;
+
+$button-space: 12px !default;
+$button-round: 4px !default;
+
+.yzd-button {
+  padding: 0 20px;
+  height: 40px;
+  border-radius: $button-round;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dcdfe6;
+  background-color: #fff;
+  font-size: 14px;
+  color: #606266;
+  cursor: pointer;
+  + .yzd-button {
+    margin-left: $button-space;
+  }
+  &.is-border {
+    background-color: #fff;
+    color: #606266;
+  }
+  &[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  i {
+    display: flex;
+    align-items: center;
+  }
+  .icon-prefix {
+    margin-right: 10px;
+  }
+  .icon-suffix {
+    margin-left: 10px;
+  }
+}
+.yzd-button-primary {
+  border-color: $primary;
+  background-color: $primary;
+  color: #fff;
+  &.is-border {
+    background-color: #fff;
+    color: $primary;
+  }
+}
+.yzd-button-success {
+  border-color: $success;
+  background-color: $success;
+  color: #fff;
+  &.is-border {
+    background-color: #fff;
+    color: $success;
+  }
+}
+.yzd-button-warning {
+  border-color: $warning;
+  background-color: $warning;
+  color: #fff;
+  &.is-border {
+    background-color: #fff;
+    color: $warning;
+  }
+}
+.yzd-button-danger {
+  border-color: $danger;
+  background-color: $danger;
+  color: #fff;
+  &.is-border {
+    background-color: #fff;
+    color: $danger;
+  }
+}
+.is-round {
+  border-radius: 30px;
+}
+.yzd-button-medium {
+  padding: 0 12px;
+  height: 36px;
+}
+.yzd-button-small {
+  padding: 0 10px;
+  height: 30px;
+  font-size: 12px;
+  .icon-prefix {
+    margin-right: 5px;
+  }
+  .icon-suffix {
+    margin-left: 5px;
+  }
+}
+.yzd-button-mini {
+  padding: 0 8px;
+  height: 24px;
+  font-size: 10px;
+  i {
+    font-size: 12px;
+  }
+  .icon-prefix {
+    margin-right: 3px;
+  }
+  .icon-suffix {
+    margin-left: 3px;
+  }
+}
+.icon-loading {
+  animation: loading 5s infinite linear;
+}
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
