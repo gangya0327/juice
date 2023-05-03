@@ -1,0 +1,29 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+.draggable-list-wrap {
+  width: 500px;
+  margin: 50px auto;
+  padding: 10px 30px 30px;
+  box-shadow: 1px 1px 5px #999;
+  background-color: #fff;
+}
+
+.draggable-item {
+  height: 50px;
+  margin-top: 20px;
+  padding: 0 20px;
+  line-height: 50px;
+  border: 1px solid #ddd;
+}
+
+.dragging {
+  opacity: 0;
+}
