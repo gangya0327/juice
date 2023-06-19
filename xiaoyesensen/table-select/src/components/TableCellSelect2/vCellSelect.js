@@ -1,7 +1,6 @@
 import { reactive } from 'vue';
 
 function mounted(el, bindings) {
-  console.log(el, bindings);
   bindEvent(el);
   el.allRows = getAllRows(el);
   el.targetNodes = new Set();
@@ -27,7 +26,6 @@ function handleMouseDown(e) {
 
     addTargetNode(el, target);
     setWeekdayTimeData(el, rowIndex, columnIndex);
-    console.log(el.weekdayTimeData);
 
     el.addEventListener('mousemove', handleMouseMove, false);
     el.addEventListener('mouseup', handleMouseUp, false);
@@ -75,7 +73,6 @@ function getTargetNodes(el, startRow, startColumn, endRow, endColumn) {
         if (columnIndex >= startC && columnIndex <= endC) {
           targetNodes.add(td);
           setWeekdayTimeData(el, rowIndex, columnIndex);
-          console.log(el.weekdayTimeData);
         }
       });
     }
