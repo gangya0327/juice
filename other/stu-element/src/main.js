@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
 
-import ElButton from './components/ElButton';
-Vue.component('ElButton', ElButton);
+import ElementUI from './ElementUI';
+Vue.use(ElementUI);
 
 Vue.config.productionTip = false;
 

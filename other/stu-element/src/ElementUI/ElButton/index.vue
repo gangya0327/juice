@@ -1,6 +1,6 @@
 <template>
   <button
-    :disable="disabled"
+    :disable="disabled || loading"
     :class="[
       'el-button',
       'el-button--' + (type || 'default'),
@@ -8,9 +8,15 @@
       { 'is-round': round },
       { 'is-circle': circle },
       { 'is-disabled': disabled },
+      { 'is-loading': loading },
+      size && 'el-button--' + size,
     ]"
+    :autofocus="autofocus"
+    :type="nativeType"
+    @click="$emit('click', $event)"
   >
-    <i v-if="icon" :class="icon"></i>
+    <i v-if="icon && !loading" :class="icon"></i>
+    <i v-if="loading" class="el-icon-loading"></i>
     <span v-if="$slots.default">
       <slot />
     </span>
@@ -43,9 +49,21 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  created() {
-    console.log(this.$slots);
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: String,
+    },
+    autofocus: {
+      type: Boolean,
+      default: false,
+    },
+    nativeType: {
+      type: String,
+      default: 'button',
+    },
   },
 };
 </script>

@@ -32,6 +32,8 @@
       <el-button type="info" icon="el-icon-message" circle></el-button>
       <el-button type="warning" icon="el-icon-star-off" circle></el-button>
       <el-button type="danger" icon="el-icon-delete" circle></el-button>
+
+      <el-button type="primary" loading icon="el-icon-edit" circle></el-button>
     </div>
 
     <h2>禁用状态</h2>
@@ -66,12 +68,67 @@
       <el-button type="primary" icon="el-icon-search">搜索</el-button>
       <el-button type="primary">上传<i class="el-icon-upload el-icon--right"></i></el-button>
     </div>
+
+    <h2>按钮组</h2>
+    <div class="row">
+      <el-button-group>
+        <el-button type="primary" icon="el-icon-arrow-left">上一页</el-button>
+        <el-button type="primary">下一页<i class="el-icon-arrow-right el-icon--right"></i></el-button>
+      </el-button-group>
+      &nbsp;
+      <el-button-group>
+        <el-button type="primary" icon="el-icon-edit"></el-button>
+        <el-button type="primary" icon="el-icon-share"></el-button>
+        <el-button type="primary" icon="el-icon-delete"></el-button>
+      </el-button-group>
+    </div>
+
+    <h2>加载中</h2>
+    <div class="row">
+      <el-button type="primary" :loading="true">加载中</el-button>
+    </div>
+
+    <h2>不同尺寸</h2>
+    <div class="row">
+      <el-button>默认按钮</el-button>
+      <el-button size="medium">中等按钮</el-button>
+      <el-button size="small">小型按钮</el-button>
+      <el-button size="mini">超小按钮</el-button>
+    </div>
+    <div class="row">
+      <el-button round>默认按钮</el-button>
+      <el-button size="medium" round>中等按钮</el-button>
+      <el-button size="small" round>小型按钮</el-button>
+      <el-button size="mini" round>超小按钮</el-button>
+    </div>
+
+    <h2>按钮聚焦</h2>
+    <div class="row">
+      <el-button autofocus>默认按钮</el-button>
+    </div>
+
+    <h2>type属性</h2>
+    <div class="row">
+      <el-button native-type="button">默认按钮</el-button>
+      <el-button native-type="submit">默认按钮</el-button>
+      <el-button native-type="reset">默认按钮</el-button>
+    </div>
+
+    <h2>点击事件</h2>
+    <div class="row">
+      <el-button @click="handleClick">默认按钮</el-button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
+  methods: {
+    handleClick(e) {
+      console.log('我被点击了', e);
+    },
+  },
 };
 </script>
 
