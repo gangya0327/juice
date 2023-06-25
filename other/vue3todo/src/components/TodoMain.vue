@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import useStore from '../store';
+const { main } = useStore();
+console.log('main :>> ', main);
+</script>
+
 <template>
   <section class="main">
     <input type="checkbox" id="toggle-tall" class="toggle-all" />
