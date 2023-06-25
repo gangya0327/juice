@@ -1,12 +1,23 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue'
+import TodoHeader from './components/TodoHeader.vue';
+import TodoMain from './components/TodoMain.vue';
+import TodoFooter from './components/TodoFooter.vue';
 </script>
 
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <section class="todoapp">
+    <todo-header></todo-header>
+
+    <todo-main></todo-main>
+
+    <todo-footer></todo-footer>
+  </section>
+  <footer class="info">
+    <p>Double-click to edit a todo</p>
+    <p>Template by <a href="http://sindresorhus.com">Sindre Sorhus</a></p>
+    <p>Created by <a href="http://todomvc.com">you</a></p>
+    <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+  </footer>
 </template>
 
 <style>
