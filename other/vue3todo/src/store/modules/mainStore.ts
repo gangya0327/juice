@@ -13,6 +13,24 @@ const mainStore = defineStore('main', {
       const { data } = await request.get<ITodoItem[]>('/');
       this.list = data;
     },
+    /**
+     * 删除数据
+     * @param id number
+     */
+    async delTodo(id: number) {
+      await request.delete(`/${id}`);
+      this.getTodos();
+    },
+    /**
+     * 更新数据
+     * @param id 查找更新对象
+     * @param key 更新哪一项
+     * @param value 更新什么
+     */
+    async updateTodo(id: number, key: string, value: boolean) {
+      await request.patch(`/${id}`, { [key]: value });
+      this.getTodos();
+    },
   },
 });
 

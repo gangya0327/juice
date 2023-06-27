@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
+import { ITodoItem } from '../types/data';
 const { main } = useStore();
-const { getTodos } = main;
+const { getTodos, delTodo, updateTodo } = main;
 const { list } = storeToRefs(main);
+const handleChangeInput = (item: ITodoItem) => {
+  updateTodo(item.id, 'done', !item.done);
+};
 getTodos();
 </script>
 
@@ -14,27 +18,11 @@ getTodos();
     <ul class="todo-list">
       <li :class="{ completed: item.done }" v-for="item in list" :key="item.id">
         <div class="view">
-          <input type="checkbox" class="toggle" :checked="item.done" />
+          <input type="checkbox" class="toggle" :checked="item.done" @change="handleChangeInput(item)" />
           <label for="">{{ item.name }}</label>
-          <button class="destroy"></button>
+          <button class="destroy" @click="delTodo(item.id)"></button>
         </div>
       </li>
-      <!-- <li class="completed">
-        <div class="view">
-          <input type="checkbox" class="toggle" checked />
-          <label for="">taste javascript</label>
-          <button class="destroy"></button>
-        </div>
-        <input type="text" class="edit" value="create a todomvc template" />
-      </li>
-      <li>
-        <div class="view">
-          <input type="checkbox" class="toggle" />
-          <label for="">buy a unicorn</label>
-          <button class="destroy"></button>
-        </div>
-        <input type="text" class="edit" value="rule the web" />
-      </li> -->
     </ul>
   </section>
 </template>
