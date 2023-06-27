@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import useStore from '../store';
 const { main } = useStore();
-console.log('main :>> ', main);
+const { getTodos } = main;
+const { list } = storeToRefs(main);
+getTodos();
 </script>
 
 <template>
@@ -9,7 +12,14 @@ console.log('main :>> ', main);
     <input type="checkbox" id="toggle-tall" class="toggle-all" />
     <label for="toggle-all">mark all as complete</label>
     <ul class="todo-list">
-      <li class="completed">
+      <li :class="{ completed: item.done }" v-for="item in list" :key="item.id">
+        <div class="view">
+          <input type="checkbox" class="toggle" :checked="item.done" />
+          <label for="">{{ item.name }}</label>
+          <button class="destroy"></button>
+        </div>
+      </li>
+      <!-- <li class="completed">
         <div class="view">
           <input type="checkbox" class="toggle" checked />
           <label for="">taste javascript</label>
@@ -24,7 +34,7 @@ console.log('main :>> ', main);
           <button class="destroy"></button>
         </div>
         <input type="text" class="edit" value="rule the web" />
-      </li>
+      </li> -->
     </ul>
   </section>
 </template>

@@ -1,13 +1,18 @@
 import { defineStore } from 'pinia';
+import { ITodoItem } from '../../types/data';
+import request from '../../utils/request';
 
 const mainStore = defineStore('main', {
   state: () => {
     return {
-      list: [
-        { id: 0, name: '吃饭', done: true },
-        { id: 1, name: '喝八杯水', done: false },
-      ],
+      list: [] as ITodoItem[],
     };
+  },
+  actions: {
+    async getTodos() {
+      const { data } = await request.get<ITodoItem[]>('/');
+      this.list = data;
+    },
   },
 });
 
