@@ -31,6 +31,14 @@ const mainStore = defineStore('main', {
       await request.patch(`/${id}`, { [key]: value });
       this.getTodos();
     },
+    /**
+     * 添加数据
+     * @param name string
+     */
+    async addTodo(name: string) {
+      await request.post('/', { name, done: false });
+      this.getTodos();
+    },
   },
 });
 
