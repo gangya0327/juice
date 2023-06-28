@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
-const { main } = useStore();
+const { main, footer } = useStore();
 const { clearCompleted } = main;
+const { changeActive } = footer;
+
 const { completed, unCompleted, list } = storeToRefs(main);
+const { tabs, active } = storeToRefs(footer);
 </script>
 
 <template>
@@ -12,7 +15,10 @@ const { completed, unCompleted, list } = storeToRefs(main);
       <strong>{{ unCompleted.length }}</strong> item left
     </span>
     <ul class="filters">
-      <li>
+      <li v-for="item in tabs" :key="item" @click="changeActive(item)">
+        <a href="#" :class="{ selected: item === active }">{{ item }}</a>
+      </li>
+      <!-- <li>
         <a href="#" class="selected">All</a>
       </li>
       <li>
@@ -20,7 +26,7 @@ const { completed, unCompleted, list } = storeToRefs(main);
       </li>
       <li>
         <a href="#/completed">Completed</a>
-      </li>
+      </li> -->
     </ul>
     <button v-if="completed.length > 0" class="clear-completed" @click="clearCompleted">Clear completed</button>
   </footer>
