@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { ITodoItem } from '../../types/data';
 import request from '../../utils/request';
+import footerStore from './footerStore';
 
 const mainStore = defineStore('main', {
   state: () => {
@@ -79,6 +80,19 @@ const mainStore = defineStore('main', {
      */
     unCompleted(state) {
       return state.list.filter((item) => !item.done);
+    },
+    /**
+     * 根据active筛选数据
+     */
+    renderList(state) {
+      const active = footerStore().active;
+      if (active === 'Active') {
+        return state.list.filter((item) => !item.done);
+      }
+      if (active === 'Completed') {
+        return state.list.filter((item) => item.done);
+      }
+      return state.list;
     },
   },
 });

@@ -1,12 +1,20 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import useStore from '../store';
+import { TActive } from '../types/data';
 const { main, footer } = useStore();
 const { clearCompleted } = main;
 const { changeActive } = footer;
 
 const { completed, unCompleted, list } = storeToRefs(main);
 const { tabs, active } = storeToRefs(footer);
+
+const initHash = () => {
+  const hash = window.location.hash;
+  const result = (hash === '#/Active' || hash === '#/Completed' ? hash.slice(2) : 'All') as TActive;
+  changeActive(result);
+};
+initHash();
 </script>
 
 <template>
@@ -16,17 +24,8 @@ const { tabs, active } = storeToRefs(footer);
     </span>
     <ul class="filters">
       <li v-for="item in tabs" :key="item" @click="changeActive(item)">
-        <a href="#" :class="{ selected: item === active }">{{ item }}</a>
+        <a :href="`#/${item}`" :class="{ selected: item === active }">{{ item }}</a>
       </li>
-      <!-- <li>
-        <a href="#" class="selected">All</a>
-      </li>
-      <li>
-        <a href="#/active">Active</a>
-      </li>
-      <li>
-        <a href="#/completed">Completed</a>
-      </li> -->
     </ul>
     <button v-if="completed.length > 0" class="clear-completed" @click="clearCompleted">Clear completed</button>
   </footer>
