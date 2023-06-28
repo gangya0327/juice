@@ -50,6 +50,16 @@ const mainStore = defineStore('main', {
       await Promise.all(arrPromise);
       // this.getTodos();
     },
+    /**
+     * 清空已完成
+     */
+    async clearCompleted() {
+      const arrPromise = this.completed.map((item) => {
+        return request.delete(`/${item.id}`);
+      });
+      await Promise.all(arrPromise);
+      this.getTodos();
+    },
   },
   getters: {
     // mainRadioStatus(): boolean {
@@ -57,6 +67,18 @@ const mainStore = defineStore('main', {
     // },
     mainRadioStatus(state) {
       return state.list.every((item) => item.done);
+    },
+    /**
+     * 已完成数据
+     */
+    completed(state) {
+      return state.list.filter((item) => item.done);
+    },
+    /**
+     * 未完成数据
+     */
+    unCompleted(state) {
+      return state.list.filter((item) => !item.done);
     },
   },
 });
