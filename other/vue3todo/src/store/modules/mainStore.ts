@@ -48,7 +48,7 @@ const mainStore = defineStore('main', {
         return this.updateTodo(item.id, 'done', done);
       });
       await Promise.all(arrPromise);
-      this.getTodos();
+      // this.getTodos();
     },
   },
   getters: {
