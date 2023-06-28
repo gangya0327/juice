@@ -39,6 +39,25 @@ const mainStore = defineStore('main', {
       await request.post('/', { name, done: false });
       this.getTodos();
     },
+    /**
+     * 更新所有状态
+     * @param done 状态
+     */
+    async updateAllStatus(done: boolean) {
+      const arrPromise = this.list.map((item) => {
+        return this.updateTodo(item.id, 'done', done);
+      });
+      await Promise.all(arrPromise);
+      this.getTodos();
+    },
+  },
+  getters: {
+    // mainRadioStatus(): boolean {
+    //   return this.list.every((item) => item.done);
+    // },
+    mainRadioStatus(state) {
+      return state.list.every((item) => item.done);
+    },
   },
 });
 
