@@ -27,7 +27,7 @@ const mainStore = defineStore('main', {
      * @param key 更新哪一项
      * @param value 更新什么
      */
-    async updateTodo(id: number, key: string, value: boolean) {
+    async updateTodo(id: number, key: string, value: boolean | string) {
       await request.patch(`/${id}`, { [key]: value });
       this.getTodos();
     },
