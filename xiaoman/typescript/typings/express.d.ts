@@ -13,5 +13,3 @@ declare module 'express' {
   const express: Express;
   export default express;
 }
-
-declare let a: number;
