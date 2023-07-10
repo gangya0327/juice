@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c --bundleConfigAsCjs",
-    "dev": "rollup -c -w"
+    "build": "cross-env NODE_ENV=production rollup -c --bundleConfigAsCjs",
+    "dev": "cross-env NODE_ENV=development rollup -c -w --bundleConfigAsCjs"
   },
   "keywords": [],
   "author": "",
