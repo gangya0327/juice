@@ -1,2 +1,4 @@
-const str2: string = 'abc';
-console.log('str2 :>> ', str2);
+export enum Dictionaries {
+  permanent = 'permanent',
+  expire = '_expire_',
+}

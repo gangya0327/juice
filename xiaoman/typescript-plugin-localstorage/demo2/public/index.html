@@ -1,11 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module">
+      import { Storage } from '../dist/index.js';
+      const ls = new Storage();
+      let count = 0;
+      // 设置一个属性，5秒后过期
+      ls.set('a', 'xyz', new Date().getTime() + 5000);
+      const timer = setInterval(() => {
+        if (count >= 10) {
+          clearInterval(timer);
+        }
+        const a = ls.get('a');
+        console.log('a :>> ', a);
+        count++;
+      }, 1000);
+    </script>
+  </body>
 </html>
