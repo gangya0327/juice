@@ -7,8 +7,9 @@
   </head>
   <body>
     <script type="module">
-      import { Storage } from './dist/index.js';
+      import { Storage } from '../dist/index.js';
       const ls = new Storage();
+      // 设置一个属性，5秒后过期
       ls.set('a', 123, new Date().getTime() + 5000);
       setInterval(() => {
         const a = ls.get('a');
