@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
 </script>
 
 <template>
@@ -8,11 +7,19 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <!-- <RouterLink to="/about">About</RouterLink> -->
+
+        <router-link to="/props">props</router-link>
+        <router-link to="/event">custom event</router-link>
+        <router-link to="/bus">event bus</router-link>
+        <router-link to="/model">v-model</router-link>
+        <router-link to="/attrs-listeners">useAttrs</router-link>
+        <router-link to="/ref-parent">ref $parent</router-link>
+        <router-link to="/provide-inject">provide-inject</router-link>
+        <router-link to="/pinia">pinia</router-link>
+        <router-link to="/slot">slot</router-link>
       </nav>
     </div>
   </header>
@@ -48,6 +55,7 @@ nav a.router-link-exact-active:hover {
 
 nav a {
   display: inline-block;
+  margin-bottom: 10px;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
 }
