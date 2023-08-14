@@ -1,6 +1,13 @@
 <template>
   <div>
     <h2>Test</h2>
+
+    <svg style="width: 30px; height: 30px;">
+      <use xlink:href="#icon-welcome" fill="red"></use>
+    </svg>
+
+    <svg-icon name="home" color="blue"></svg-icon>
+
     <el-button type="primary">Primary</el-button>
     <el-button type="primary" :icon="Edit">Primary</el-button>
 
@@ -15,6 +22,8 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+
+    <a disabled @click="test">test</a>
   </div>
 </template>
 
@@ -35,6 +44,11 @@ const handleCurrentChange = (val: number) => {
 };
 
 console.log('test', import.meta.env);
+
+const test = () => {
+  console.log('test');
+  
+}
 </script>
 
 <style lang="scss" scope></style>
