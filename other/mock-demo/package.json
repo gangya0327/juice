@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/mockjs": "^1.0.7",
+    "axios": "^1.4.0",
+    "mockjs": "^1.1.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
