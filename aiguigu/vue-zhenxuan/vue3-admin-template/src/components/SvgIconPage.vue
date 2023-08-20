@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>Test</h2>
+    <h1>Test</h1>
 
-    <svg style="width: 30px; height: 30px;">
+    <svg style="width: 30px; height: 30px">
       <use xlink:href="#icon-welcome" fill="red"></use>
     </svg>
 
@@ -32,7 +32,7 @@ import { Edit } from '@element-plus/icons-vue';
 import { ref } from 'vue';
 
 const currentPage1 = ref(5);
-const small = ref(false)
+const small = ref(false);
 const background = ref(false);
 const disabled = ref(false);
 
@@ -47,8 +47,7 @@ console.log('test', import.meta.env);
 
 const test = () => {
   console.log('test');
-  
-}
+};
 </script>
 
 <style lang="scss" scope></style>

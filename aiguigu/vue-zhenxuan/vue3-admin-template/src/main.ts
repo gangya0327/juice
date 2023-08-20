@@ -3,7 +3,6 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import zhCn from 'element-plus/dist/locale/zh-cn.mjs';
 
-import './style.css';
 import App from './App.vue';
 
 const app = createApp(App);
@@ -14,6 +13,8 @@ import 'virtual:svg-icons-register';
 
 import SvgIcon from '@/components/SvgIcon.vue';
 app.component('SvgIcon', SvgIcon);
+
+import '@/styles/index.scss'
 
 app.use(ElementPlus, {
   locale: zhCn,
