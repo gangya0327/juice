@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import SvgIconPage from './components/SvgIconPage.vue'
-import SassPage from './components/SassPage.vue';
+// import SvgIconTest from './components/SvgIconTest.vue'
+// import SassTest from './components/SassTest.vue';
+import MockTest from './components/MockTest.vue';
 </script>
 
 <template>
-  <SvgIconPage/>
-  <SassPage />
+  <!-- <SvgIconTest/> -->
+  <!-- <SassTest /> -->
+  <MockTest />
 </template>
 
 <style scoped>
