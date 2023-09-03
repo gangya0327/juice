@@ -1,30 +1,41 @@
+<template></template>
+
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import cityData from './city.json';
+
+/* 原结构:
+[
+  {
+    name: '北京市',
+    code: '101',
+    cityList: [
+      { name: '北京市', code: '101' },
+    ],
+  },
+];
+
+// 新结构：
+{
+  北京市: {
+    name,
+    code,
+    cities: {
+      北京市: {
+        name,
+        code,
+      },
+    },
+  },
+}; */
+
+const provinces = formatData(cityData);
+console.log('provinces :>> ', provinces);
+
+function formatData(data: any) {
+  return data.reduce((prev, next) => {
+    prev[next.provinceName] = next;
+  }, {});
+}
 </script>
 
-<template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
-
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<style lang="scss" scoped></style>
