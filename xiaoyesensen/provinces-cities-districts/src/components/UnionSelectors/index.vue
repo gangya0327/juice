@@ -1,42 +1,41 @@
 <template>
   <div>
-    <!--
-    <select :onchange="handleProvinceChange">
-      <option value="">请选择 - 省</option>
-      <option v-for="(item, index) in provinces" :key="index" :value="`${item.code}:${item.name}`">
-        {{ item.name }}
-      </option>
-    </select>
-
-    <select v-if="isCitySelectShow" :onchange="handleCityChange">
-      <option value="">请选择 - 市</option>
-      <option v-for="(item, index) in state.cities" :value="`${item.code}:${item.name}`" :key="index">
-        {{ item.name }}
-      </option>
-    </select>
-
-    <select v-if="isCountiesSelectShow" :onchange="handleCountyChange">
-      <option value="">请选择 - 区</option>
-      <option v-for="(item, index) in state.counties" :value="`${item.code}:${item.name}`" :key="index">
-        {{ item.name }}
-      </option>
-    </select> -->
-
-    <p>
-      <router-link to="/">home</router-link> | <router-link to="/province">province</router-link> |
-      <router-link to="/waterWave">WaterWave</router-link>
-    </p>
-
-    <router-view></router-view>
+    <Selector
+      :is-show="isProvinceSelectorShow"
+      default-title="请选择 - 省"
+      code-key="provinceCode"
+      name-key="provinceName"
+      :data="provinces"
+      @handle-change="handleProvinceChange"
+    ></Selector>
+    <Selector
+      :is-show="isCitySelectorShow"
+      default-title="请选择 - 市"
+      code-key="cityCode"
+      name-key="cityName"
+      :data="state.cities"
+      @handle-change="handleCityChange"
+    ></Selector>
+    <Selector
+      :is-show="isCountySelectorShow"
+      default-title="请选择 - 区"
+      code-key="countyCode"
+      name-key="countyName"
+      :data="state.counties"
+      @handle-change="handleCountyChange"
+    ></Selector>
   </div>
 </template>
 
 <script setup>
-import { computed, reactive } from 'vue';
-import cityData from './city.json';
+import { reactive, computed } from 'vue';
+import Selector from './Selector.vue';
 
-const provinces = formatData(cityData);
-// console.log('provinces :>> ', provinces);
+const props = defineProps({
+  data: Object,
+});
+
+const provinces = formatData(props.data);
 
 const state = reactive({
   cities: null,
@@ -48,11 +47,14 @@ const state = reactive({
   },
 });
 
-const isCitySelectShow = computed(() => !!state.cities);
-const isCountiesSelectShow = computed(() => !!state.counties);
+const isProvinceSelectorShow = !!provinces;
+const isCitySelectorShow = computed(() => !!state.cities);
+const isCountySelectorShow = computed(() => !!state.counties);
 
 const handleProvinceChange = (e) => {
+  console.log('e :>> ', e);
   const { value } = e.target;
+  console.log('value :>> ', value);
   if (!value) {
     state.selectedInfo.province = null;
     state.selectedInfo.city = null;
@@ -67,7 +69,6 @@ const handleProvinceChange = (e) => {
   state.selectedInfo.county = null;
   state.counties = null;
 };
-
 const handleCityChange = (e) => {
   const { value } = e.target;
   if (!value) {
@@ -75,11 +76,11 @@ const handleCityChange = (e) => {
     state.counties = null;
     return;
   }
+  console.log('value :>> ', value);
   const [code, name] = value.split(':');
   state.selectedInfo.city = { code, name };
   state.counties = state.cities[name].counties;
 };
-
 const handleCountyChange = (e) => {
   const { value } = e.target;
   if (!value) {
@@ -87,36 +88,8 @@ const handleCountyChange = (e) => {
   }
   const [code, name] = value.split(':');
   state.selectedInfo.county = { code, name };
-
-  console.log(state.selectedInfo);
 };
 
-// 转换省市区数据结构
-
-/* 原结构:
-[
-  {
-    name: '北京市',
-    code: '101',
-    cityList: [
-      { name: '北京市', code: '101' },
-    ],
-  },
-];
-
-// 新结构：
-{
-  北京市: {
-    name,
-    code,
-    cities: {
-      北京市: {
-        name,
-        code,
-      },
-    },
-  },
-}; */
 function formatData(data) {
   return data.reduce((prev1, cur1) => {
     cur1.cities = cur1.mallCityList.reduce((prev2, cur2) => {
