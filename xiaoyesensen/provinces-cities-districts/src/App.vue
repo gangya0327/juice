@@ -23,7 +23,8 @@
     </select> -->
 
     <p>
-      <router-link to="/">home</router-link> | <router-link to="/province">province</router-link> |
+      <router-link to="/">home</router-link> | <router-link to="/province">province</router-link>|
+      <router-link to="/province2">province2</router-link> |
       <router-link to="/waterWave">WaterWave</router-link>
     </p>
 
@@ -35,7 +36,7 @@
 import { computed, reactive } from 'vue';
 import cityData from './city.json';
 
-const provinces = formatData(cityData);
+// const provinces = formatData(cityData);
 // console.log('provinces :>> ', provinces);
 
 const state = reactive({

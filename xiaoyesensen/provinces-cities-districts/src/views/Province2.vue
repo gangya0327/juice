@@ -5,7 +5,9 @@ province
 </template>
 
 <script setup>
+import cityData from '../city.json';
 
+console.log('cityData :>> ', cityData);
 </script>
 
 <style lang="scss" scoped>
