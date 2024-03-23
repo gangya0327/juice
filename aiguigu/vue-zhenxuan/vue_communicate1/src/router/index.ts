@@ -21,6 +21,21 @@ const router = createRouter({
       path: '/props',
       name: 'props',
       component: () => import('../views/1_props/index.vue')
+    },
+    {
+      path: '/custom-event',
+      name: 'custom-event',
+      component: () => import('../views/2_custom-event/index.vue')
+    },
+    {
+      path: '/event-bus',
+      name: 'event-bus',
+      component: () => import('../views/3_event-bus/index.vue')
+    },
+    {
+      path: '/v-model',
+      name: 'v-model',
+      component: () => import('../views/4_v-model/index.vue')
     }
   ]
 })
