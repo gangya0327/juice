@@ -15,6 +15,8 @@ import HelloWorld from './components/HelloWorld.vue';
         <RouterLink to="/custom-event">Custom Event</RouterLink>
         <RouterLink to="/event-bus">Event Bus</RouterLink>
         <RouterLink to="/v-model">v-model</RouterLink>
+        <RouterLink to="/useAttrs">useAttrs</RouterLink>
+        <RouterLink to="/ref-parent">ref parent</RouterLink>
       </nav>
     </div>
   </header>

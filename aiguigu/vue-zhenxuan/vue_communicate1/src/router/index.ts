@@ -36,7 +36,17 @@ const router = createRouter({
       path: '/v-model',
       name: 'v-model',
       component: () => import('../views/4_v-model/index.vue')
-    }
+    },
+    {
+      path: '/useAttrs',
+      name: 'useAttrs',
+      component: () => import('../views/5_useAttrs/index.vue')
+    },
+    {
+      path: '/ref-parent',
+      name: 'ref-parent',
+      component: () => import('../views/6_ref-parent/index.vue')
+    },
   ]
 })
 
