@@ -47,6 +47,16 @@ const router = createRouter({
       name: 'ref-parent',
       component: () => import('../views/6_ref-parent/index.vue')
     },
+    {
+      path: '/provide',
+      name: 'provide',
+      component: () => import('../views/7_provide/index.vue')
+    },
+    {
+      path: '/pinia',
+      name: 'pinia',
+      component: () => import('../views/8_pinia/index.vue')
+    },
   ]
 })
 

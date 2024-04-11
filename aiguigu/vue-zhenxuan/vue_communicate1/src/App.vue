@@ -17,6 +17,8 @@ import HelloWorld from './components/HelloWorld.vue';
         <RouterLink to="/v-model">v-model</RouterLink>
         <RouterLink to="/useAttrs">useAttrs</RouterLink>
         <RouterLink to="/ref-parent">ref parent</RouterLink>
+        <RouterLink to="/provide">provide</RouterLink>
+        <RouterLink to="/pinia">pinia</RouterLink>
       </nav>
     </div>
   </header>
