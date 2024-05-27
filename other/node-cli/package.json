@@ -1,0 +1,26 @@
+{
+  "name": "create-my-app",
+  "version": "1.0.0",
+  "description": "",
+  "bin": {
+    "create-my-app": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch --sourcemap",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/prompts": "^2.4.9",
+    "degit": "^2.8.4",
+    "prompts": "^2.4.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.5"
+  }
+}
