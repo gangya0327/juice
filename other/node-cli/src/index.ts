@@ -21,7 +21,7 @@ const bootstrap = async () => {
   fs.renameSync(path.resolve(targetPath, '_gitignore'), path.resolve(targetPath, '.gitignore'));
 
   console.log(`
-  创建成功
+  创建成功 🚀
   cd ${result.projectName}
   npm install
   npm run dev
