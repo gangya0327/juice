@@ -1,6 +1,6 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
-import HelloWorld from './components/HelloWorld.vue';
+<script setup>
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -8,17 +8,11 @@ import HelloWorld from './components/HelloWorld.vue';
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/props">Props</RouterLink>
-        <RouterLink to="/custom-event">Custom Event</RouterLink>
-        <RouterLink to="/event-bus">Event Bus</RouterLink>
-        <RouterLink to="/v-model">v-model</RouterLink>
-        <RouterLink to="/useAttrs">useAttrs</RouterLink>
-        <RouterLink to="/ref-parent">ref parent</RouterLink>
-        <RouterLink to="/provide">provide</RouterLink>
-        <RouterLink to="/pinia">pinia</RouterLink>
       </nav>
     </div>
   </header>
@@ -38,7 +32,7 @@ header {
 }
 
 nav {
-  width: 300px;
+  width: 100%;
   font-size: 12px;
   text-align: center;
   margin-top: 2rem;
