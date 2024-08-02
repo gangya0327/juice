@@ -1,6 +1,18 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { reactive } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+const links = reactive([
+  { path: 'home' },
+  { path: 'props' },
+  { path: 'custom_event' },
+  { path: 'event_bus' },
+  { path: 'v-model' },
+  { path: 'useAttrs' },
+  { path: 'ref' },
+  { path: 'provide_inject' },
+  { path: 'pinia' },
+  { path: 'slot' },
+]);
 </script>
 
 <template>
@@ -8,11 +20,8 @@ import HelloWorld from './components/HelloWorld.vue'
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+        <RouterLink v-for="(item, index) in links" :key="index" :to="item.path"> {{ item.path }}</RouterLink>
       </nav>
     </div>
   </header>
@@ -32,10 +41,10 @@ header {
 }
 
 nav {
-  width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 nav a.router-link-exact-active {
@@ -49,10 +58,11 @@ nav a.router-link-exact-active:hover {
 nav a {
   display: inline-block;
   padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
+  margin: 0 0 15px;
+  border-right: 1px solid var(--color-border);
 }
 
-nav a:first-of-type {
+nav a:last-of-type {
   border: 0;
 }
 
