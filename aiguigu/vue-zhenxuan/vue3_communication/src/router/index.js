@@ -32,6 +32,18 @@ const router = createRouter({
       path: '/useAttrs',
       component: () => import('../views/5-useAttrs/index.vue'),
     },
+    {
+      path: '/ref',
+      component: () => import('../views/6-ref_$parent/index.vue'),
+    },
+    {
+      path: '/provide_inject',
+      component: () => import('../views/7-provide_inject/index.vue'),
+    },
+    {
+      path: '/pinia',
+      component: () => import('../views/8-pinia/index.vue'),
+    },
   ],
 });
 
