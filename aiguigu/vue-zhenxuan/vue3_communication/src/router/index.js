@@ -44,6 +44,10 @@ const router = createRouter({
       path: '/pinia',
       component: () => import('../views/8-pinia/index.vue'),
     },
+    {
+      path: '/slot',
+      component: () => import('../views/9-slot/index.vue'),
+    },
   ],
 });
 
