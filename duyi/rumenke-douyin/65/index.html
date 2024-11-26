@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 800px;
+        border: 1px solid #333;
+      }
+      .outer::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .inner {
+        width: 230px;
+        height: 230px;
+        margin: 15px 15px;
+        border: 1px solid #111;
+        float: left;
+        border-radius: 50%;
+      }
+      .inner1 {
+        background-image: conic-gradient(orange, brown, orange);
+      }
+      .inner2 {
+        background-image: conic-gradient(from 90deg, orange, brown, orange);
+      }
+      .inner3 {
+        background-image: conic-gradient(at 50px 50px, orange, brown, orange);
+      }
+      .inner4 {
+        background-image: conic-gradient(from 90deg at 50px 50px, orange, brown, orange);
+      }
+      .inner5 {
+        background-image: conic-gradient(orange 90deg, brown 180deg, orange 270deg);
+      }
+      .inner6 {
+        background-image: repeating-conic-gradient(orange 90deg, brown 180deg, orange 270deg);
+      }
+      .inner7 {
+        background-image: repeating-conic-gradient(from 90deg at 50px 50px, orange 90deg, brown 180deg, orange 270deg);
+      }
+      .inner8 {
+        background-image: conic-gradient(#f00, #ff0, #0f0, #0ff, #00f, #f0f, #f00);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner inner1">默认，中心到四周</div>
+      <div class="inner inner2">from 90deg</div>
+      <div class="inner inner3">at 50px 50px</div>
+      <div class="inner inner4">from 90deg at 50px 50px</div>
+      <div class="inner inner5"></div>
+      <div class="inner inner6"></div>
+      <div class="inner inner7"></div>
+      <div class="inner inner8"></div>
+    </div>
+  </body>
+</html>

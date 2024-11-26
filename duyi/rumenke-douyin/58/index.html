@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .container {
+        width: 70%;
+        min-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #eee;
+      }
+      .container::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .left {
+        width: 300px;
+        background-color: orange;
+        float: left;
+        margin-right: 20px;
+      }
+      .right {
+        width: 280px;
+        background-color: cornflowerblue;
+        float: right;
+        margin-left: 30px;
+      }
+      .main {
+        background-color: lightseagreen;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <aside class="left">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, perferendis! Repudiandae praesentium accusamus sapiente
+        perferendis quod, eos possimus vitae beatae! Perferendis necessitatibus ipsa fugiat, eos eius rem molestiae natus sit
+        harum quibusdam unde possimus repudiandae quidem eveniet amet.
+      </aside>
+      <div class="right">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores, atque eum dolorem minima quasi voluptates aut ad
+        impedit ullam magni et voluptatum laboriosam architecto voluptatibus exercitationem natus dicta veritatis harum officia
+        optio nisi dignissimos esse explicabo.
+      </div>
+      <div class="main">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id, corrupti? Omnis in quod pariatur, eius maxime optio expedita
+        molestiae ipsum provident minus doloribus est sint nihil! Necessitatibus dignissimos illo veritatis itaque maxime rerum ut
+        optio cumque sequi, inventore quis adipisci quibusdam. Totam iste Quisquam, perferendis! Repudiandae praesentium accusamus
+        sapiente perferendis quod, eos possimus vitae beatae! Perferendis necessitatibus ipsa fugiat, e eveniet laboriosam cum
+        modi omnis mollitia voluptatum, saepe minima et odio ut eaque consectetur voluptas vero distinctio velit Dolores, atque
+        eum dolorem aliquam debitis fugiat perspiciatis quos sunt porro tempora. Ipsa, quis, officiis natus itaque temporibus
+        animi doloribus ad nisi accusamus in minima rerum. Eum consequatur facere minima quae culpa voluptatibus labore fugiat,
+        necessitatibus ad architecto excepturi incidunt optio dolorem tenetur!
+      </div>
+    </div>
+  </body>
+</html>

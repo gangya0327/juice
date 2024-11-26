@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 800px;
+        border: 1px solid #333;
+      }
+      .outer::after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .inner {
+        width: 230px;
+        height: 170px;
+        margin: 15px 15px;
+        border: 1px solid #111;
+        float: left;
+      }
+      .inner1 {
+        background-image: radial-gradient(orange, aqua, lightgreen);
+      }
+      .inner2 {
+        background-image: radial-gradient(at left top, orange, aqua, lightgreen);
+      }
+      .inner3 {
+        background-image: radial-gradient(at 150px 60px, orange, aqua, lightgreen);
+      }
+      .inner4 {
+        background-image: radial-gradient(ellipse at 150px 60px, orange, aqua, lightgreen);
+      }
+      .inner5 {
+        background-image: radial-gradient(circle, orange, aqua, lightgreen);
+      }
+      .inner6 {
+        background-image: radial-gradient(orange 20px, aqua 70px, lightgreen 120px);
+      }
+      .inner7 {
+        background-image: repeating-radial-gradient(circle, orange 20px, aqua 70px, lightgreen 120px);
+      }
+      .inner8 {
+        background-image: radial-gradient(150px 100px at 100px 50px, orange 0, aqua 100px, lightgreen 150px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner inner1">默认，中心到四周</div>
+      <div class="inner inner2">at left top，调整渐变中心位置</div>
+      <div class="inner inner3">at 150px 60px，调整渐变中心位置</div>
+      <div class="inner inner4">ellipse at 150px 60px，渐变的形态为ellipse，渐变中心的位置</div>
+      <div class="inner inner5">只调整渐变形态为circle</div>
+      <div class="inner inner6"></div>
+      <div class="inner inner7"></div>
+      <div class="inner inner8">150px 90px at 100px 50px</div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 80vw;
+        height: 100%;
+        margin: 4vh 4vw;
+        border: 1px solid #aaa;
+      }
+      .inner {
+        width: 150px;
+        height: 80px;
+        transition-duration: 2s;
+      }
+      .inner1 {
+        background: orange;
+        transition-timing-function: ease; /* 默认 */
+      }
+      .inner2 {
+        background: lightgreen;
+        transition-timing-function: ease-in; /* 慢速开始 */
+      }
+      .inner3 {
+        background: lightcoral;
+        transition-timing-function: ease-out; /* 加速结束 */
+      }
+      .inner4 {
+        background: violet;
+        transition-timing-function: ease-in-out; /* 慢速开始和加速结束 */
+      }
+      .inner5 {
+        background: lightblue;
+        transition-timing-function: linear; /* 平滑过渡 */
+      }
+      .inner6 {
+        background: yellowgreen;
+        transition-timing-function: step-start; /* 开始时执行 */
+      }
+      .inner7 {
+        background: wheat;
+        transition-timing-function: step-end; /* 结束时执行 */
+      }
+      .inner8 {
+        background: mediumseagreen;
+        transition-timing-function: steps(20); /* 分20步执行 */
+      }
+      .inner9 {
+        background: chocolate;
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275); /* bezier曲线 */
+      }
+      .outer:hover .inner {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner inner1">ease</div>
+      <div class="inner inner2">ease-in</div>
+      <div class="inner inner3">ease-out</div>
+      <div class="inner inner4">ease-in-out</div>
+      <div class="inner inner5">linear</div>
+      <div class="inner inner6">step-start</div>
+      <div class="inner inner7">step-end</div>
+      <div class="inner inner8">steps(20)</div>
+      <div class="inner inner9">steps(20)</div>
+    </div>
+  </body>
+</html>

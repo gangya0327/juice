@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 600px;
+        height: 80px;
+        margin: 50px auto;
+        border: 1px solid #ccc;
+        position: relative;
+      }
+      .inner {
+        width: 80px;
+        height: 100%;
+        background-color: orange;
+        animation: move 3s infinite;
+        position: absolute;
+      }
+      @keyframes move {
+        from {
+        }
+        to {
+          transform: translateX(600px) rotate(720deg);
+          border-radius: 50%;
+          background-color: blueviolet;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  </body>
+</html>

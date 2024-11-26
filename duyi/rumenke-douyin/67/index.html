@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 300px;
+        height: 300px;
+        border: 1px solid #ccc;
+        margin: 100px auto;
+        position: relative;
+        transform-style: preserve-3d; /* 开启3d */
+        perspective: 300px; /* 透视距离 */
+        perspective-origin: -50px -50px; /* 视觉中心 */
+      }
+      .inner {
+        width: 100px;
+        height: 100px;
+        background: tomato;
+        /* transform: translateX(50px) translateY(50px); */
+        /* transform: translate(50px, 50px); */
+        /* position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); */
+        transform: translateZ(100px);
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner"></div>
+    </div>
+  </body>
+</html>

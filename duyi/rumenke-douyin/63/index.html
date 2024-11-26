@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .outer {
+        width: 700px;
+        height: 450px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        align-items: center;
+        border: 1px solid #333;
+      }
+      .inner {
+        width: 190px;
+        height: 190px;
+        padding: 5px;
+        border: 1px solid #111;
+      }
+      .inner1 {
+        background-image: linear-gradient(orange, aqua, lightgreen);
+      }
+      .inner2 {
+        background-image: linear-gradient(to right top, orange, aqua, lightgreen);
+      }
+      .inner3 {
+        background-image: linear-gradient(8deg, orange, aqua, lightgreen);
+      }
+      .inner4 {
+        /* 从紫色（从0到50px）平滑过渡到青色（从50px到100px），再从青色平滑过渡到绿色（从100px到130px）。 */
+        background-image: linear-gradient(orange 50px, aqua 100px, lightgreen 130px);
+      }
+      .inner5 {
+        /* 没有渐变区域的地方，重新发生渐变 */
+        background-image: repeating-linear-gradient(orange 50px, aqua 100px, lightgreen 130px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outer">
+      <div class="inner inner1">默认</div>
+      <div class="inner inner2">to right top</div>
+      <div class="inner inner3">8deg</div>
+      <div class="inner inner4">从紫色（从0到50px）平滑过渡到青色（从50px到100px），再从青色平滑过渡到绿色（从100px到130px）</div>
+      <div class="inner inner5">没有渐变区域的地方，重新发生渐变</div>
+    </div>
+  </body>
+</html>

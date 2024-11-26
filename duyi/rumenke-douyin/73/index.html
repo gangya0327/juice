@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 600px;
+        height: 320px;
+        margin: 50px auto;
+        position: relative;
+        border-radius: 10px;
+        transition: 0.3s linear;
+        overflow: hidden;
+      }
+      .box .image {
+        width: 100%;
+        height: 100%;
+        transition: 0.3s linear;
+      }
+      .box .cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        line-height: 320px;
+        font-size: 50px;
+        letter-spacing: 5px;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        transition: 0.3s linear;
+      }
+      .box:hover {
+        cursor: pointer;
+        box-shadow: 0 0 20px #000;
+      }
+      .box:hover .image {
+        transform: scale(1.2) rotate(5deg);
+      }
+      .box:hover .cover {
+        text-shadow: 0 0 2px #fff;
+        color: transparent;
+        background-color: rgba(0, 0, 0, 0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <img class="image" src="./1.jpg" alt="" />
+      <div class="cover">江山万里多娇</div>
+    </div>
+    <div class="box">
+      <img class="image" src="./13.jpg" alt="" />
+      <div class="cover">江山万里多娇</div>
+    </div>
+    <div class="box">
+      <img class="image" src="./4.jpeg" alt="" />
+      <div class="cover">江山万里多娇</div>
+    </div>
+  </body>
+</html>
