@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .circle {
+        margin: 100px auto;
+        width: 300px;
+        height: 300px;
+        border: 1px solid #777;
+        border-radius: 50%;
+        font-size: 30px;
+        color: blueviolet;
+        text-align: center;
+        animation: rotate 30s linear infinite;
+        position: relative;
+      }
+      @keyframes rotate {
+        from {
+          transform: rotate(0);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .circle span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <div class="circle">HELLO WORLD</div> -->
+
+    <div class="circle"> YES I AM A STUDENT </div>
+
+    <script>
+      const element = document.querySelector('.circle');
+      const text = element.innerText + ' ';
+      element.innerHTML = '';
+      for (let i = 0; i < text.length; i++) {
+        let letter = text[i];
+        const span = document.createElement('span');
+        span.innerText = letter;
+        const r = (360 / text.length) * i;
+        span.style.transform = 'rotate(' + r + 'deg)';
+        element.appendChild(span);
+      }
+      let flag = false;
+      element.onclick = function () {
+        if (!flag) {
+          element.style.animationPlayState = 'paused';
+          flag = true;
+        } else {
+          element.style.animationPlayState = 'running';
+          flag = false;
+        }
+      };
+    </script>
+  </body>
+</html>
