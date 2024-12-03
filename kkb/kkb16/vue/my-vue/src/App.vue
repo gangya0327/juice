@@ -1,40 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-
-    <img src="@/assets/girl.jpeg" alt="" width="200" />
-    <img src="./assets/girl.jpeg" alt="" width="200" />
-
-    <div class="box">hello world</div>
+    <nav>
+      <router-link to="/">Home</router-link> | <router-link to="/courses">Courses</router-link> |
+      <router-link to="/admin">Admin</router-link> | <router-link to="/login">Login</router-link> |
+    </nav>
+    <router-view />
   </div>
 </template>
 
-<script>
-import { getCourses } from '@/api/course.js';
-
-export default {
-  name: 'App',
-  mounted() {
-    getCourses();
-  },
-};
-</script>
-
-<style lang="scss" scoped>
-$color: orange;
-
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
 
-  .box {
-    background-color: $color;
-    width: 150px;
-    height: 150px;
-  }
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
