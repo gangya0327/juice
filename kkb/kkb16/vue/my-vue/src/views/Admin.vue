@@ -4,6 +4,7 @@
     <div class="element-demo">
       <div><element-test></element-test></div>
       <div><k-form></k-form></div>
+      <div><y-form></y-form></div>
     </div>
   </div>
 </template>
@@ -11,9 +12,10 @@
 <script>
 import ElementTest from '@/components/KForm/ElementTest.vue';
 import KForm from '@/components/KForm';
+import YForm from '@/components/YForm';
 
 export default {
-  components: { ElementTest, KForm },
+  components: { ElementTest, KForm, YForm },
 };
 </script>
 
