@@ -40,7 +40,8 @@ export default {
     onSubmit() {
       this.$refs.uForm.validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const notice = this.$notice({ title: '提示', message: '登录成功', duration: 3000 });
+          notice.show();
         } else {
           console.log('error submit!!');
           return false;
