@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #cec;
+  color: #333;
+}
+
+.container {
+  background-color: #fff;
+  width: 400px;
+  margin: 30px;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.container h3 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-item {
+  margin-bottom: 12px;
+}
+
+/* 文本框 */
+.txt {
+  outline: none;
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+.txt:focus {
+  border-color: #5f8be8;
+}
+
+/* 下拉列表 */
+select.txt {
+  height: 100px;
+  padding: 10px;
+}
+
+/* 多行文本 */
+textarea.txt {
+  height: 100px;
+  padding: 10px;
+  resize: none;
+}
+
+button {
+  height: 40px;
+  width: 150px;
+  border: none;
+  color: #fff;
+  outline: none;
+  background-color: #5f8be8;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+button:hover {
+  background-color: #759ae9;
+}
+button:disabled {
+  background-color: #afc4f0;
+  cursor: none;
+}
+
+/* 统一处理浮动 */
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clearfix::after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+.captcha .txt {
+  width: 170px;
+}
+
+.title {
+  margin-right: 10px;
+}
+
+.policy {
+  font-size: 12px;
+}
+.policy span {
+  vertical-align: 2px;
+}
+
+/* 单选，多选的选中状态 */
+label input + span {
+  color: #aaa;
+}
+
+label input:checked + span {
+  color: #000;
+}
+
+.txt::placeholder {
+  color: #ccc;
+}
+.txt:focus::placeholder {
+  color: #5f8be8;
+}

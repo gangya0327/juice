@@ -1,0 +1,93 @@
+.footer-top {
+  padding: 27px 0;
+  border-bottom: 1px solid #e0e0e0;
+  height: 75px;
+  color: #616161;
+}
+
+.footer-top a {
+  width: 20%;
+  height: 20px;
+  line-height: 20px;
+  font-size: 16px;
+  text-align: center;
+  border-right: 1px solid #e0e0e0;
+}
+
+.footer-top .iconfont {
+  font-size: 26px;
+  vertical-align: -4px;
+}
+
+.footer-top a:last-child {
+  border-right: none;
+}
+
+.footer-bottom {
+  padding: 40px 0;
+}
+
+.footer-link {
+  width: 160px;
+}
+
+.footer-link h3 {
+  font-size: 14px;
+  font-weight: normal;
+  color: #424242;
+  margin-bottom: 17px;
+}
+
+.footer-link a {
+  display: block;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.footer-contact {
+  width: 245px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.footer-phone {
+  font-size: 22px;
+  color: #ff6700;
+}
+
+.footer-phone-desc {
+  color: #616161;
+}
+
+.footer-support {
+  width: 118px;
+  border: 1px solid #ff6700;
+  color: #ff6700;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+}
+
+.footer-support .iconfont {
+  vertical-align: -1px;
+  font-size: 14px;
+}
+
+.footer-support:hover {
+  background: #ff6700;
+  color: #fff;
+}
+
+.footer-subscribe {
+  color: #616161;
+}
+
+.footer-subscribe .iconfont {
+  font-size: 20px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.footer-subscribe .iconfont:hover {
+  color: #ff6700;
+}
